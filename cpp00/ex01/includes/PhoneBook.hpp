@@ -5,16 +5,16 @@
 # include "Contact.hpp"
 
 class	PhoneBook {
-	// public :
+	public :
 
-	// void add_contact(Contact Contact);
+	void add_contact(Contact Contact);
 	// void get_contact(Contact Contact);
 
-	// private :
+	private :
 
-	// Contact m_contact[8];
-	// int		m_number_of_contact;
-	// int		m_next_to_change;
+	Contact m_contact[8];
+	int		m_number_of_contact;
+	int		m_next_to_change;
 };
 
 #endif
