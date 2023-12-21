@@ -2,24 +2,25 @@
 # define CONTACT_H
 
 # include <string>
-# include "PhoneBook.hpp"
+# include <iostream>
 
 class	Contact {
-	// public :
+	public :
 
-	// void	change_first_name();
-	// void	change_last_name();
-	// void	change_nick_name();
-	// void	change_phone();
-	// void	change_secret();
+	Contact();
+	void	change_first_name(std::string new_name);
+	void	change_last_name(std::string new_last_name);
+	void	change_nick_name(std::string new_nick_name);
+	void	change_phone(std::string num);
+	void	change_secret(std::string secret);
 
-	// private :
+	private :
 
-	// std::string m_first_name;
-	// std::string m_last_name;
-	// std::string m_nick_name;
-	// std::string m_phone;
-	// std::string m_secret;
+	std::string m_first_name;
+	std::string m_last_name;
+	std::string m_nick_name;
+	std::string m_phone;
+	std::string m_secret;
 };
 
 #endif

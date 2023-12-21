@@ -2,12 +2,15 @@
 # define PHONEBOOK_H
 
 # include <string>
+# include <iostream>
 # include "Contact.hpp"
 
 class	PhoneBook {
 	public :
 
-	void add_contact(Contact Contact);
+	PhoneBook();
+	void	add_contact();
+	// void	change_first_name();
 	// void get_contact(Contact Contact);
 
 	private :

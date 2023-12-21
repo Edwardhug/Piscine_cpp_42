@@ -9,13 +9,10 @@ int	main(void) {
 
 	Righted = "first";
 	while (Righted != "EXIT"){
-		cout << "What do you want to do with your phonebook ?" << endl;
-		cout << "To add a new contact, type ADD" << endl;
-		cout << "To get information about your contacts, type SEARCH" << endl;
-		cout << "To close it, type EXIT" << endl << "> ";
+		cout << "> ";
 		getline(cin, Righted);
 		if (Righted == "ADD")
-			Book.
+			Book.add_contact();
 	}
 
 
