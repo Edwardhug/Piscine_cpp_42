@@ -63,11 +63,16 @@ void	PhoneBook::search_contact(){
 	}
 	if (m_number_of_contact == 0)
 		return ;
-	cout << "Index : " ;
-	if (!(cin >> index) || index > m_number_of_contact || index < 1){
-		cin.clear();
-		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	while (1){
+		cout << "Index : " ;
+		if (!(cin >> index) || index > m_number_of_contact || index < 1){
+			cin.clear();
+			std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			cout << "Waiting for a valid index" << endl;
+		}
+		else{
+			m_contact[index - 1].print_info();
+			return ;
+		}
 	}
-	else
-		m_contact[index - 1].print_info();
 }
