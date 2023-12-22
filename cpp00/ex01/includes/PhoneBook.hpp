@@ -10,8 +10,7 @@ class	PhoneBook {
 
 	PhoneBook();
 	void	add_contact();
-	// void	change_first_name();
-	// void get_contact(Contact Contact);
+	void	search_contact();
 
 	private :
 

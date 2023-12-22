@@ -4,8 +4,8 @@
 using namespace std;
 
 int	main(void) {
-	string	Righted;
 	PhoneBook Book;
+	string	Righted;
 
 	Righted = "first";
 	while (Righted != "EXIT"){
@@ -13,6 +13,8 @@ int	main(void) {
 		getline(cin, Righted);
 		if (Righted == "ADD")
 			Book.add_contact();
+		if (Righted == "SEARCH")
+			Book.search_contact();
 	}
 
 
