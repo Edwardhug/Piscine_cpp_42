@@ -3,8 +3,6 @@
 using namespace std;
 
 void	randomChump(string name) {
-	Zombie	Zom;
-
-	Zom.set_name(name);
+	Zombie	Zom(name);
 	Zom.announce();
 }

@@ -3,10 +3,6 @@
 
 using namespace std;
 
-Zombie	*newZombie(string name) {
-	Zombie	*Zom;
-
-	Zom = NULL;
-	Zom->set_name(name);
-	return (Zom);
+Zombie	*newZombie(string newname) {
+	return new Zombie(newname);		// need better comprehension of this, maybe it will come later
 }
