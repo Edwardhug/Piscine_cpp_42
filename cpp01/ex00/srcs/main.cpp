@@ -6,5 +6,5 @@ int	main(void) {
 	zombie1.announce();
 	zombie2->announce();
 	randomChump("zombie3");
-	delete(zombie2);	// only created zombie with an address
+	delete(zombie2);	// was create with new so i need to delete it
 }
