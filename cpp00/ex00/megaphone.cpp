@@ -1,6 +1,6 @@
 #include <iostream>
 
-char	**convert_to_capital(int ac, char **av){
+char	**convert_to_capital(int ac, char **av) {
 	int	i;
 	int	j;
 
