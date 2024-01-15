@@ -3,7 +3,7 @@
 
 using namespace std;
 
-HumanA::HumanA(string new_name, string new_Weapon) : Weapon_player(new_Weapon) {
+HumanA::HumanA(string new_name, Weapon new_Weapon) : Weapon_player(new_Weapon) {
 	name = new_name;
 }
 
