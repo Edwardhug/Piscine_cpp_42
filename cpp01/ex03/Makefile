@@ -7,11 +7,8 @@ SRCS =	main.cpp \
 		HumanA.cpp \
 		HumanB.cpp 
 
-INCLUDE =	Weapon.h \
-			Weapon.hpp \
-			HumanA.h \
+INCLUDE =	Weapon.hpp \
 			HumanA.hpp \
-			HumanB.h \
 			HumanB.hpp 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
