@@ -20,6 +20,6 @@ void	HumanB::attack() {
 		cout << "fists" << endl;
 }
 
-void	HumanB::setWeapon(Weapon new_weapon) {
+void	HumanB::setWeapon(Weapon &new_weapon) {
 	Weapon_player = &new_weapon;
 }
