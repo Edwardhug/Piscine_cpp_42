@@ -10,9 +10,9 @@ class Fixed {
 	public :
 
 	Fixed();	//default constructor
-	Fixed(const Fixed &x);	//copy constructor
+	Fixed(const Fixed &other);	//copy constructor
 	~Fixed();	// destructor
-	Fixed & operator = (const Fixed &x);	//copy assignement operator
+	Fixed & operator = (const Fixed &other);	//copy assignement operator
 	int	getRawBits(void) const;
 	void setRawBits(int const raw);
 };
