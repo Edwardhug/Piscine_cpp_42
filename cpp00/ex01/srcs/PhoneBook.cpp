@@ -6,7 +6,7 @@
 #include <limits>
 
 
-using namespace std;
+
 
 PhoneBook::PhoneBook(){
 	m_number_of_contact = 0;
@@ -14,22 +14,22 @@ PhoneBook::PhoneBook(){
 }
 
 void	PhoneBook::add_contact(){
-	string	first_name;
-	string	last_name;
-	string	nick_name;
-	string	number;
-	string	secret;
+	std::string	first_name;
+	std::string	last_name;
+	std::string	nick_name;
+	std::string	number;
+	std::string	secret;
 
-	cout << "First name : ";
-	getline(cin, first_name);
-	cout << "Last name : ";
-	getline(cin, last_name);
-	cout << "Nick name : ";
-	getline(cin, nick_name);
-	cout << "Phone number : ";
-	getline(cin, number);
-	cout << "Darkest secret : ";
-	getline(cin, secret);
+	std::cout << "First name : ";
+	getline(std::cin, first_name);
+	std::cout << "Last name : ";
+	getline(std::cin, last_name);
+	std::cout << "Nick name : ";
+	getline(std::cin, nick_name);
+	std::cout << "Phone number : ";
+	getline(std::cin, number);
+	std::cout << "Darkest secret : ";
+	getline(std::cin, secret);
 
 	m_contact[m_next_to_change].change_first_name(first_name);
 	m_contact[m_next_to_change].change_last_name(last_name);
@@ -49,26 +49,26 @@ void	PhoneBook::search_contact(){
 	int		index;
 
 	i = 0;
-	cout << "┌──────────┬──────────┬──────────┬──────────┐" << endl;
-	cout << "│" << setw(10) << right << "index";
-	cout << "│" << setw(10) << right << "first name";
-	cout << "│" << setw(10) << right << "last name";
-	cout << "│" << setw(10) << right << "nickname" << "│" << endl;
-	cout << "├──────────┼──────────┼──────────┼──────────┤" << endl;
+	std::cout << "┌──────────┬──────────┬──────────┬──────────┐" << std::endl;
+	std::cout << "│" << std::setw(10) << std::right << "index";
+	std::cout << "│" << std::setw(10) << std::right << "first name";
+	std::cout << "│" << std::setw(10) << std::right << "last name";
+	std::cout << "│" << std::setw(10) << std::right << "nickname" << "│" << std::endl;
+	std::cout << "├──────────┼──────────┼──────────┼──────────┤" << std::endl;
 	while (i < m_number_of_contact)
 	{
-		cout << "|" << setw(10) << right << i + 1;
+		std::cout << "|" << std::setw(10) << std::right << i + 1;
 		m_contact[i].get_contact();
 		i++;
 	}
 	if (m_number_of_contact == 0)
 		return ;
 	while (1){
-		cout << "Index : " ;
-		if (!(cin >> index) || index > m_number_of_contact || index < 1){
-			cin.clear();
-			std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "Waiting for a valid index" << endl;
+		std::cout << "Index : " ;
+		if (!(std::cin >> index) || index > m_number_of_contact || index < 1){
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Waiting for a valid index" << std::endl;
 		}
 		else{
 			m_contact[index - 1].print_info();

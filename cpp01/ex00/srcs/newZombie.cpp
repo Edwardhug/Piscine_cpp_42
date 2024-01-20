@@ -1,8 +1,8 @@
 #include "../includes/Zombie.h"
 #include <cstdlib>
 
-using namespace std;
 
-Zombie	*newZombie(string newname) {
+
+Zombie	*newZombie(std::string newname) {
 	return new Zombie(newname);		// allocation dynamique
 }

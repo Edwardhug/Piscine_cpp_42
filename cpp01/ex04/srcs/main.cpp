@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-using namespace std;
+
 
 void	read_and_replace(char **av, ifstream &source_fd, ofstream &dest_fd) {
 	string	line;
@@ -19,7 +19,7 @@ void	read_and_replace(char **av, ifstream &source_fd, ofstream &dest_fd) {
 		}
 		dest_fd << line;
 		if (!source_fd.eof())
-			dest_fd << endl;
+			dest_fd << std::endl;
 	}
 }
 
@@ -28,13 +28,13 @@ int	file_copy(char **av) {
 
 	ifstream source_fd(av[1]);	//opening of the source
 	if (!source_fd.is_open()) {
-		cout << "Error during the oppening of source file." << endl;
+		std::cout << "Error during the oppening of source file." << std::endl;
 		return (1);
 	}
 
 	ofstream dest_fd(new_file.c_str());	//opening of the destination
 	if (!dest_fd.is_open()) {
-        cout << "Error during the oppening of destination file." << endl;
+        std::cout << "Error during the oppening of destination file." << std::endl;
 		source_fd.close();
         return 1;
 	}
@@ -48,11 +48,11 @@ int	file_copy(char **av) {
 
 int	main(int ac, char **av) {
 	if (ac != 4) {
-		cout << "3 arguments needed" << endl;
+		std::cout << "3 arguments needed" << std::endl;
 		return (1);
 	}
 	if (file_copy(av) == 1) {
-		cout << "Error during the copy" << endl;
+		std::cout << "Error during the copy" << std::endl;
 		return (1);
 	}
 	return (0);

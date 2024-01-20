@@ -1,7 +1,7 @@
 #include "../includes/Zombie.h"
 #include <cstdlib>
 
-using namespace std;
+
 
 Zombie*	zombieHorde(int N, string name) {
 	int i = 0;

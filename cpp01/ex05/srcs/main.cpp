@@ -5,12 +5,12 @@ int main()
 {
 	Harl harl;
 
-	std::cout << "DEBUG: " << std::endl;
+	std::std::cout << "DEBUG: " << std::std::endl;
 	harl.complain("DEBUG");
-	std::cout << "INFO: " << std::endl;
+	std::std::cout << "INFO: " << std::std::endl;
 	harl.complain("INFO");
-	std::cout << "WARNING: " << std::endl;
+	std::std::cout << "WARNING: " << std::std::endl;
 	harl.complain("WARNING");
-	std::cout << "ERROR: " << std::endl;
+	std::std::cout << "ERROR: " << std::std::endl;
 	harl.complain("ERROR");
 }

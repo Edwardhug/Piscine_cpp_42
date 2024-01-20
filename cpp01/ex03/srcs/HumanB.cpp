@@ -1,9 +1,9 @@
 #include "../includes/HumanB.hpp"
 #include <iostream>
 
-using namespace std;
 
-HumanB::HumanB(string new_name) {
+
+HumanB::HumanB(std::string new_name) {
 	name = new_name;
 	Weapon_player = NULL;
 }
@@ -13,11 +13,11 @@ HumanB::~HumanB() {
 }
 
 void	HumanB::attack() {
-	cout << name << " attacks with their ";
+	std::cout << name << " attacks with their ";
 	if (Weapon_player != NULL)
-		cout << Weapon_player->getType() << endl;
+		std::cout << Weapon_player->getType() << std::endl;
 	else
-		cout << "fists" << endl;
+		std::cout << "fists" << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &new_weapon) {
