@@ -3,7 +3,7 @@
 
 
 
-Zombie*	zombieHorde(int N, string name) {
+Zombie*	zombieHorde(int N, std::string name) {
 	int i = 0;
 	Zombie *horde = new Zombie[N];
 

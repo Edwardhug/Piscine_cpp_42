@@ -30,7 +30,7 @@ void	Harl::error(void) {
 }
 
 void	Harl::complain(std::string level) {
-	string	list[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+	std::string	list[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 	int	i = 0;
 
 	while (i < 4) {

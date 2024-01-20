@@ -4,9 +4,9 @@
 
 
 int	main() {
-	string str = "HI THIS IS BRAIN";
-	string *stringPTR = &str;
-	string &stringREF = str;
+	std::string str = "HI THIS IS BRAIN";
+	std::string *stringPTR = &str;
+	std::string &stringREF = str;
 
 	std::cout << "Memory address of the string : " << &str << std::endl;
 	std::cout << "Memory address of the stringPTR : " << stringPTR << std::endl;
