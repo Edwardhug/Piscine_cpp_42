@@ -1,12 +1,14 @@
-NAME = ScavTrap
+NAME = FragTrap
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 
 SRCS =	main.cpp \
 		ScavTrap.cpp \
+		FragTrap.cpp \
 		ClapTrap.cpp 
 
 INCLUDE =	ClapTrap.hpp \
+			FragTrap.hpp \
 			ScavTrap.hpp 
 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
