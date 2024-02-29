@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include "../includes/PhoneBook.hpp"
 
 
@@ -13,6 +14,10 @@ int	main(void) {
 		if (newline == true)
 			std::cout << "> ";
 		std::getline(std::cin, Righted);
+		if (!std::cin){
+			std::cout << "EOF find, clean exit" << std::endl;
+			exit(EXIT_FAILURE);
+		}
 		if (Righted == "ADD")
 			Book.add_contact();
 		if (Righted == "SEARCH"){

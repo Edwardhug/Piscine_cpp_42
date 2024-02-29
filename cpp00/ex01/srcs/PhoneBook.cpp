@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <stdlib.h>
 
 
 
@@ -22,15 +23,34 @@ void	PhoneBook::add_contact(){
 
 	std::cout << "First name : ";
 	getline(std::cin, first_name);
+	if (!std::cin){
+		std::cout << "EOF find, clean exit" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	std::cout << "Last name : ";
 	getline(std::cin, last_name);
+	if (!std::cin){
+		std::cout << "EOF find, clean exit" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	std::cout << "Nick name : ";
 	getline(std::cin, nick_name);
+	if (!std::cin){
+		std::cout << "EOF find, clean exit" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	std::cout << "Phone number : ";
 	getline(std::cin, number);
+	if (!std::cin){
+		std::cout << "EOF find, clean exit" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	std::cout << "Darkest secret : ";
 	getline(std::cin, secret);
-
+	if (!std::cin){
+		std::cout << "EOF find, clean exit" << std::endl;
+		exit(EXIT_FAILURE);
+	}
 	m_contact[m_next_to_change].change_first_name(first_name);
 	m_contact[m_next_to_change].change_last_name(last_name);
 	m_contact[m_next_to_change].change_nick_name(nick_name);
@@ -66,6 +86,10 @@ void	PhoneBook::search_contact(){
 	while (1){
 		std::cout << "Index : " ;
 		if (!(std::cin >> index) || index > m_number_of_contact || index < 1){
+			if (!std::cin){
+				std::cout << "EOF find, clean exit" << std::endl;
+				exit(EXIT_FAILURE);
+			}
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cout << "Waiting for a valid index" << std::endl;
