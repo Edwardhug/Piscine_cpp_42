@@ -24,31 +24,31 @@ void	PhoneBook::add_contact(){
 	std::cout << "First name : ";
 	getline(std::cin, first_name);
 	if (!std::cin){
-		std::cout << "EOF find, clean exit" << std::endl;
+		std::cout << "Ctrl + d detected, clean exit" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Last name : ";
 	getline(std::cin, last_name);
 	if (!std::cin){
-		std::cout << "EOF find, clean exit" << std::endl;
+		std::cout << "Ctrl + d detected, clean exit" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Nick name : ";
 	getline(std::cin, nick_name);
 	if (!std::cin){
-		std::cout << "EOF find, clean exit" << std::endl;
+		std::cout << "Ctrl + d detected, clean exit" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Phone number : ";
 	getline(std::cin, number);
 	if (!std::cin){
-		std::cout << "EOF find, clean exit" << std::endl;
+		std::cout << "Ctrl + d detected, clean exit" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	std::cout << "Darkest secret : ";
 	getline(std::cin, secret);
 	if (!std::cin){
-		std::cout << "EOF find, clean exit" << std::endl;
+		std::cout << "Ctrl + d detected, clean exit" << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	m_contact[m_next_to_change].change_first_name(first_name);
@@ -64,9 +64,17 @@ void	PhoneBook::add_contact(){
 		m_next_to_change = 0;
 }
 
+bool	is_numeric(std::string index) {
+	for (int i = 0; index[i]; i++) {
+		if (index[i] < '0' || index[i] > '9')
+			return (false);
+	}
+	return true;
+}
+
 void	PhoneBook::search_contact(){
-	int		i;
-	int		index;
+	int			i;
+	std::string index;
 
 	i = 0;
 	std::cout << "┌──────────┬──────────┬──────────┬──────────┐" << std::endl;
@@ -85,17 +93,16 @@ void	PhoneBook::search_contact(){
 		return ;
 	while (1){
 		std::cout << "Index : " ;
-		if (!(std::cin >> index) || index > m_number_of_contact || index < 1){
-			if (!std::cin){
-				std::cout << "EOF find, clean exit" << std::endl;
-				exit(EXIT_FAILURE);
-			}
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		getline(std::cin, index);
+		if (!std::cin){
+			std::cout << "Ctrl + d detected, clean exit" << std::endl;
+			exit(EXIT_FAILURE);
+		}
+		if (is_numeric(index) == false || atoi(index.c_str()) > m_number_of_contact || atoi(index.c_str()) < 1) {
 			std::cout << "Waiting for a valid index" << std::endl;
 		}
-		else{
-			m_contact[index - 1].print_info();
+		else {
+			m_contact[atoi(index.c_str()) - 1].print_info();
 			return ;
 		}
 	}
