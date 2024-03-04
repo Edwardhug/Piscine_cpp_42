@@ -11,6 +11,7 @@ class HumanB {
 
 	public :
 
+	HumanB();
 	HumanB(std::string new_name);
 	~HumanB();
 	void attack();

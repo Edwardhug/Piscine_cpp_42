@@ -1,7 +1,7 @@
 #include "../includes/HumanB.hpp"
 #include <iostream>
 
-
+HumanB::HumanB() : name("No name"), Weapon_player(NULL) {}
 
 HumanB::HumanB(std::string new_name) {
 	name = new_name;

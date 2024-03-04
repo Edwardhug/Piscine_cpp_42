@@ -1,14 +1,14 @@
-NAME = brainz
+NAME = Brainz
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 
 SRCS =	main.cpp \
-		Zombie.cpp \
 		newZombie.cpp \
-		randomChump.cpp
+		randomChump.cpp \
+		Zombie.cpp 
 
-INCLUDE =	Zombie.hpp \
-			Zombie.h
+INCLUDE =	Zombie.h \
+			Zombie.hpp
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
