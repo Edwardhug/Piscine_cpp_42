@@ -2,6 +2,11 @@
 # include <iostream>
 
 Brain::Brain() {
+	for (int i = 0; i < 100; i++) {
+		_ideas[i] = "Eat";
+		i++;
+		_ideas[i] = "Sleep";
+	}
 	std::cout << "Brain constructor called" << std::endl;
 }
 
