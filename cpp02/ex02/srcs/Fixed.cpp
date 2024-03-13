@@ -3,30 +3,31 @@
 #include <cmath>
 
 Fixed::Fixed() : Fixed_point(0) {
-	// std::cout << "Default constructor called" << std::endl;
+	std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int x) {
 	Fixed_point = int(x * (1 << Fractional_bit));
-	// std::cout << "Int constructor called" << std::endl;
+	std::cout << "Int constructor called" << std::endl;
 }
 
 Fixed::Fixed(const float x) {
 	Fixed_point = int(roundf(x * (1 << Fractional_bit)));
-	// std::cout << "Float constructor called" << std::endl;
+	std::cout << "Float constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) : Fixed_point(other.Fixed_point) {
-	// std::cout << "Copy constructor called" << std::endl;
+Fixed::Fixed(const Fixed &other) {
+	*this = other;
+	std::cout << "Copy constructor called" << std::endl;
 }
 
 Fixed::~Fixed() {
-	// std::cout << "Destructor called" << std::endl;
+	std::cout << "Destructor called" << std::endl;
 }
 
 Fixed & Fixed::operator=(const Fixed &other) {
 	Fixed_point = other.Fixed_point;
-	// std::cout << "Copy assignement operator called" << std::endl;
+	std::cout << "Copy assignement operator called" << std::endl;
 	return (*this);
 }
 

@@ -5,7 +5,8 @@ Fixed::Fixed() : Fixed_point(0) {
 	std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) : Fixed_point(other.Fixed_point) {
+Fixed::Fixed(const Fixed &other) {
+	*this = other;
 	std::cout << "Copy constructor called" << std::endl;
 }
 
