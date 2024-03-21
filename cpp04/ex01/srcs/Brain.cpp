@@ -30,3 +30,9 @@ Brain &Brain::operator=(Brain const &copy) {
 	return (*this);
 }
 
+void	Brain::printIdea(int i) const {
+	if (i < 100 && i >= 0)
+		std::cout << this->_ideas[i];
+	else
+		std::cout << "I did'nt thought that far !" << std::endl;
+}

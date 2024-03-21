@@ -10,6 +10,7 @@ class Brain {
 	~Brain();
 	Brain(Brain const &copy);
 	Brain &operator=(Brain const &copy);
+	void	printIdea(int i) const;
 
 	private :
 

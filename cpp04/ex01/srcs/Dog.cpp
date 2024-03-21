@@ -29,3 +29,7 @@ Dog &Dog::operator=(Dog const &copy) {
 void	Dog::makeSound() const {
 	std::cout << "Bark" << std::endl;
 }
+
+void	Dog::printThought(int i) const {
+	this->_brain->printIdea(i);
+}

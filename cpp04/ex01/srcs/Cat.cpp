@@ -29,3 +29,7 @@ Cat &Cat::operator=(Cat const &copy) {
 void	Cat::makeSound() const {
 	std::cout << "Meow" << std::endl;
 }
+
+void	Cat::printThought(int i) const {
+	this->_brain->printIdea(i);
+}

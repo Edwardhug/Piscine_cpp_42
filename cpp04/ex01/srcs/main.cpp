@@ -14,6 +14,12 @@ int main()
                         animals[i] = new Cat();
         }
         std::cout << std::endl;
+
+        int num = 1;
+        std::cout << "printing an idea animals " << num << " thinks ";
+        animals[num].
+
+        std::cout << std::endl;
         for (int i = 0; i < 10; i++)
                 delete animals[i];
 }

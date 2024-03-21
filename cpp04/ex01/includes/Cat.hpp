@@ -13,6 +13,7 @@ class Cat : public Animal {
 	Cat(Cat const &copy);
 	Cat &operator=(Cat const &copy);
 	void makeSound() const;
+	void printThought(int i) const;
 
 	private :
 

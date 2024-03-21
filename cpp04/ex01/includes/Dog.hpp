@@ -13,6 +13,7 @@ class Dog : public Animal {
 	Dog(Dog const &copy);
 	Dog &operator=(Dog const &copy);
 	void makeSound() const;
+	void printThought(int i) const;
 
 	private :
 
