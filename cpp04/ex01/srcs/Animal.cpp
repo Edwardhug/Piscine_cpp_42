@@ -9,7 +9,7 @@ Animal::Animal(std::string type) : _type(type) {
 }
 
 Animal::~Animal() {
-	std::cout << "Animal " << this->_type << " constructor called" << std::endl;
+	std::cout << "Animal " << this->_type << " destructor called" << std::endl;
 }
 
 Animal::Animal(Animal const &copy) {
