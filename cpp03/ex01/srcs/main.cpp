@@ -2,21 +2,20 @@
 
 int main()
 {
-        ClapTrap john("John");
-        ClapTrap jim("Jim");
-        ClapTrap joe("Joe");
-        ScavTrap jane("Jane");
+    std::cout << "Clap test" << std::endl << std::endl;
 
-        john.attack("Marge");
-        john.attack("Bart");
-        john.attack("Homer");
-        john.takeDamage(5);
-        jim.takeDamage(9);
-        jim.takeDamage(10);
-        joe.beRepaired(10);
-        joe.takeDamage(19);
-        jane.attack("Lisa");
-        jane.takeDamage(99);
-        jane.beRepaired(50);
-        jane.guardGate();
+    ClapTrap Clap("clap");
+	Clap.attack("the target");
+	Clap.takeDamage(5);
+	Clap.beRepaired(5);
+
+	std::cout << std::endl << "Scav test" << std::endl <<std::endl;
+
+	ScavTrap Scav("Scav");
+	Scav.attack("the target");
+	Scav.takeDamage(5);
+	Scav.beRepaired(5);
+	Scav.guardGate();
+
+	std::cout << std::endl << "Destructors" << std::endl <<std::endl;
 }

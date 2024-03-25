@@ -3,26 +3,28 @@
 
 int main()
 {
-        ClapTrap john("John");
-        ClapTrap jim("Jim");
-        ClapTrap joe("Joe");
-        ScavTrap jane("Jane");
-        FragTrap joseph("Joseph");
+        std::cout << "Clap test" << std::endl << std::endl;
 
-        john.attack("Marge");
-        john.attack("Bart");
-        john.attack("Homer");
-        john.takeDamage(5);
-        jim.takeDamage(9);
-        jim.takeDamage(10);
-        joe.beRepaired(10);
-        joe.takeDamage(19);
-        jane.attack("Lisa");
-        jane.takeDamage(99);
-        jane.beRepaired(50);
-        jane.guardGate();
-        joseph.attack("Maggie");
-        joseph.takeDamage(99);
-        joseph.beRepaired(50);
-        joseph.highFivesGuys();
+        ClapTrap Clap("clap");
+        Clap.attack("the target");
+        Clap.takeDamage(5);
+        Clap.beRepaired(5);
+
+        std::cout << std::endl << "Scav test" << std::endl <<std::endl;
+
+        ScavTrap Scav("Scav");
+        Scav.attack("the target");
+        Scav.takeDamage(5);
+        Scav.beRepaired(5);
+        Scav.guardGate();
+
+        std::cout << std::endl << "Frag test" << std::endl <<std::endl;
+
+        FragTrap Frag("Frag");
+        Frag.attack("the target");
+        Frag.takeDamage(5);
+        Frag.beRepaired(5);
+        Frag.highFivesGuys();
+
+        std::cout << std::endl << "Destructors" << std::endl <<std::endl;
 }
