@@ -22,6 +22,9 @@ class Bureaucrat {
 	std::string getName() const;
 	int			getGrade() const;
 
+	void	increaseGrade();
+	void	decreaseGrade();
+
 	class GradeTooHighException : public std::exception {
 		public :
 		
@@ -33,5 +36,6 @@ class Bureaucrat {
 		const char *what() const throw();
 	};
 };
+std::ostream &operator<<(std::ostream &o, Bureaucrat &bureaucrat);
 
 #endif

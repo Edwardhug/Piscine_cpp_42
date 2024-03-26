@@ -3,19 +3,9 @@ CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 
 SRCS =	main.cpp \
-		Animal.cpp \
-		Dog.cpp \
-		Cat.cpp \
-		WrongAnimal.cpp \
-		WrongCat.cpp \
-		Brain.cpp 
+		Bureaucrat.cpp 
 
-INCLUDE =	Animal.hpp \
-			Dog.hpp \
-			Cat.hpp \
-			WrongAnimal.hpp \
-			WrongCat.hpp \
-			Brain.hpp 
+INCLUDE =	Bureaucrat.hpp 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
