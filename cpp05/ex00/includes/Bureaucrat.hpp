@@ -2,6 +2,8 @@
 # define BUREAUCRAT_HPP
 
 # include <string>
+# include <exception>
+# include <iostream>
 
 class Bureaucrat {
 	private :
@@ -17,11 +19,19 @@ class Bureaucrat {
 	Bureaucrat(Bureaucrat const &copy);
 	Bureaucrat &operator=(Bureaucrat const &copy);
 
-	std::string getName();
-	int			getName();
+	std::string getName() const;
+	int			getGrade() const;
 
-	// GradeTooHighException();
-	// GradeTooLowException();
+	class GradeTooHighException : public std::exception {
+		public :
+		
+		const char *what() const throw();
+	};
+	class GradeTooLowException : public std::exception {
+		public :
+	
+		const char *what() const throw();
+	};
 };
 
 #endif
