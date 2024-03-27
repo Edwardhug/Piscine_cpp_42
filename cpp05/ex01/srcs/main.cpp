@@ -1,4 +1,5 @@
 #include "../includes/Bureaucrat.hpp"
+#include "../includes/Form.hpp"
 #include <iostream>
 #include <exception>
 
@@ -40,5 +41,30 @@ int main()
 		std::cout << "Sophie " << e.what() << std::endl;
 	}
 	std::cout << *Sophie;
+
+	// create forms
+
+	Form	Easy_form;
+	Form	*Hard_form;
+	try {	//error
+		Hard_form = new Form("hard form", 160, 1);
+	}
+	catch (std::exception &e) {
+		std::cout << "hard form " << e.what() << std::endl;
+	}
+	try {	//good
+		Hard_form = new Form("hard form", 160, 1);
+	}
+	catch (std::exception &e) {
+		std::cout << "hard form " << e.what() << std::endl;
+	}
+
+	//	sign form
+
+	Martin.signForm(Easy_form);	//success
+	Martin.signForm(*Hard_form);	//failure
+	Sophie->signForm(*Hard_form);	//success
+
+	delete Hard_form;
 	delete Sophie;
 }

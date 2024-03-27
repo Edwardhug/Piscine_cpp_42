@@ -35,11 +35,11 @@ int Form::getToExec() const {
 }
 
 const char *Form::GradeTooHighException::what() const throw() {
-	return ("grade too high sorry");
+	return ("grade too high");
 }
 
 const char *Form::GradeTooLowException::what() const throw() {
-	return ("grade too low sorry");
+	return ("grade too low");
 }
 
 std::ostream &operator<<(std::ostream &o, Form &form) {
