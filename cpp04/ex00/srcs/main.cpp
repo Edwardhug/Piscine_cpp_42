@@ -4,27 +4,21 @@
 
 int main()
 {
-        const Animal* meta = new Animal();
-        const Animal* i = new Cat("Siamese");
-        const Animal* j = new Dog("Golden Retriever");
-        const WrongAnimal* k = new WrongCat();
-        const WrongCat* l = new WrongCat("Black Tabby");
+        Animal g_animal;
+        const Animal the_cat("The_cat");
+        const Animal the_dog("The_dog");
+        const WrongAnimal w_animal("W_animal");
+        const WrongCat w_cat("W_cat");
 
-        std::cout << std::endl << i->getType() << " " << std::endl;
-        std::cout << j->getType() << " " << std::endl;
-        std::cout << k->getType() << " " << std::endl;
-        std::cout << l->getType() << " " << std::endl << std::endl;
-        i->makeSound(); //will output the cat sound!
-        j->makeSound();
-        meta->makeSound();
+        std::cout << std::endl << the_cat.getType() << " " << std::endl;
+        std::cout << the_dog.getType() << " " << std::endl;
+        std::cout << w_animal.getType() << " " << std::endl;
+        std::cout << w_cat.getType() << " " << std::endl << std::endl;
+        the_cat.makeSound();
+        the_dog.makeSound();
+        g_animal.makeSound();
         std::cout << std::endl;
-        k->makeSound();
-        l->makeSound();
+        w_animal.makeSound();
+        w_cat.makeSound();
         std::cout << std::endl;
-
-        delete meta;
-        delete i;
-        delete j;
-        delete k;
-        delete l;
 }
