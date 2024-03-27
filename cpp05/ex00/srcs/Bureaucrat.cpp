@@ -13,7 +13,7 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : _name(name) {
 
 Bureaucrat::~Bureaucrat() {}
 
-Bureaucrat::Bureaucrat(Bureaucrat const &copy) {
+Bureaucrat::Bureaucrat(Bureaucrat const &copy) : _name(copy._name) {
 	this->_grade = copy._grade;
 }
 
