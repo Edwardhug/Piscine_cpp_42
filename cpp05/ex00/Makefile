@@ -1,4 +1,4 @@
-NAME = Poly_Brain
+NAME = Bureaucrat
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 
