@@ -13,7 +13,7 @@ Animal::~Animal() {
 }
 
 Animal::Animal(Animal const &copy) {
-	*this = copy;
+	this->_type = copy._type;
 }
 
 Animal &Animal::operator=(Animal const &copy) {
