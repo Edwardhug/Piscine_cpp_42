@@ -53,7 +53,7 @@ int main()
 		std::cout << "hard form " << e.what() << std::endl;
 	}
 	try {	//good
-		Hard_form = new Form("hard form", 160, 1);
+		Hard_form = new Form("hard form", 1, 1);
 	}
 	catch (std::exception &e) {
 		std::cout << "hard form " << e.what() << std::endl;

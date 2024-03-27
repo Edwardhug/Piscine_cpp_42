@@ -1,6 +1,8 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
+
+class Form;
 # include <string>
 # include <exception>
 # include <iostream>

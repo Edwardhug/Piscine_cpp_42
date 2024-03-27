@@ -1,8 +1,8 @@
 #include "../includes/Form.hpp"
 
-Form::Form() : _name("Simple form"), _toSign(150), _toExec(150), _signed(false) {}
+Form::Form() : _name("Simple form"),  _signed(false), _toSign(150), _toExec(150) {}
 
-Form::Form(std::string name, int toSign, int toExec) : _name(name), _toSign(toSign), _toExec(toExec) {
+Form::Form(std::string name, int toSign, int toExec) : _name(name), _signed(false),_toSign(toSign), _toExec(toExec) {
 	if (toSign > 150 || toExec > 150)
 		throw GradeTooLowException();
 	else if (toSign < 1 || toExec < 1)
@@ -11,7 +11,7 @@ Form::Form(std::string name, int toSign, int toExec) : _name(name), _toSign(toSi
 
 Form::~Form() {}
 
-Form::Form(Form const &copy) : _name(copy._name), _toSign(copy._toSign), _toExec(copy._toExec), _signed(copy._signed) {}
+Form::Form(Form const &copy) : _name(copy._name), _signed(copy._signed), _toSign(copy._toSign), _toExec(copy._toExec) {}
 
 Form &Form::operator=(Form const &copy) {
 	this->_signed = copy._signed;
