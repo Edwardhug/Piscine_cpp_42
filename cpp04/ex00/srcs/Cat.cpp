@@ -13,6 +13,7 @@ Cat::~Cat() {
 }
 
 Cat::Cat(Cat const &copy) : Animal(copy) {
+	this->_type = copy._type;
 	std::cout << "Cat named " << copy._type << " copy constructor called" << std::endl;
 }
 

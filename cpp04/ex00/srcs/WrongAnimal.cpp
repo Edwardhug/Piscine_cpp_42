@@ -13,7 +13,7 @@ WrongAnimal::~WrongAnimal() {
 }
 
 WrongAnimal::WrongAnimal(WrongAnimal const &copy) {
-	*this = copy;
+	this->_type = copy._type;
 }
 
 WrongAnimal &WrongAnimal::operator=(WrongAnimal const &copy) {
