@@ -53,3 +53,10 @@ void	AForm::beSigned(Bureaucrat const bureaucrat){
 	else
 		_signed = true;
 }
+
+void	AForm::execute(Bureaucrat const &executor) const {
+	if (executor.getGrade() > this->_toExec)
+		throw GradeTooLowException();
+	else
+		std::cout << "Form " << this->_name << " was executed" << std::endl;
+}
