@@ -30,7 +30,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const &executor)const {
 			file << "   /\\/*/\\*\\   " << std::endl;
 			file << "  /\\O\\/\\*\\/\\  " << std::endl;
 			file << " /\\*\\/\\*\\/\\*\\ " << std::endl;
-			file << "/\\O\\/\\*\\/*/\\O/\\" << std::endl;
+			file << "/\\O\\/\\*\\/*/\\/\\" << std::endl;
 			file << "      ||      " << std::endl;
 			file << "      ||      " << std::endl;
 			file << "      ||      " << std::endl;
