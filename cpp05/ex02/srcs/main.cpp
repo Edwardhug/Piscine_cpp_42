@@ -1,5 +1,6 @@
 #include "../includes/Bureaucrat.hpp"
 #include "../includes/AForm.hpp"
+#include "../includes/ShrubberyCreationForm.hpp"
 #include <iostream>
 #include <exception>
 
@@ -44,27 +45,17 @@ int main()
 
 	// create forms
 
-	AForm	Easy_form;
-	AForm	*Hard_form;
-	try {	//error
-		Hard_form = new AForm("hard form", 160, 1);
-	}
-	catch (std::exception &e) {
-		std::cout << "hard form " << e.what() << std::endl;
-	}
-	try {	//good
-		Hard_form = new AForm("hard form", 1, 1);
-	}
-	catch (std::exception &e) {
-		std::cout << "hard form " << e.what() << std::endl;
-	}
+	ShrubberyCreationForm	Shrubbery("home");
 
 	//	sign form
 
-	Martin.signForm(Easy_form);	//success
-	Martin.signForm(*Hard_form);	//failure
-	Sophie->signForm(*Hard_form);	//success
+	Martin.signForm(Shrubbery);	// failure
+	Sophie->signForm(Shrubbery);	//success
 
-	delete Hard_form;
+	// execute form
+
+	Martin.executeForm(Shrubbery); //failure
+	Sophie->executeForm(Shrubbery);	//success
+
 	delete Sophie;
 }

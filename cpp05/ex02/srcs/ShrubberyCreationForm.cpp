@@ -14,8 +14,29 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm co
 }
 
 void	ShrubberyCreationForm::execute(Bureaucrat const &executor)const {
-	if (executor.getGrade() > this->_toExec)
+	std::string filename;
+
+	filename = _target + "_shrubbery";
+	if (executor.getGrade() > this->getToExec())
 		throw GradeTooLowException();
 	else
-		// do what the form should do
+	{
+		std::ofstream file(filename.c_str());
+		if (file.is_open())
+		{
+			file << "      /\\      " << std::endl;
+			file << "     /\\*\\     " << std::endl;
+			file << "    /\\O\\*\\    " << std::endl;
+			file << "   /\\/*/\\*\\   " << std::endl;
+			file << "  /\\O\\/\\*\\/\\  " << std::endl;
+			file << " /\\*\\/\\*\\/\\*\\ " << std::endl;
+			file << "/\\O\\/\\*\\/*/\\O/\\" << std::endl;
+			file << "      ||      " << std::endl;
+			file << "      ||      " << std::endl;
+			file << "      ||      " << std::endl;
+			file.close();
+		}
+		else
+			std::cout << "Error during file opening" << std::endl;
+	}
 }
