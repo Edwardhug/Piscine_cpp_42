@@ -5,11 +5,16 @@ CFLAG = -Wall -Wextra -Werror -std=c++98
 SRCS =	main.cpp \
 		Bureaucrat.cpp \
 		AForm.cpp \
-		ShrubberyCreationForm.cpp 
+		ShrubberyCreationForm.cpp \
+		PresidentialPardonForm.cpp \
+		RobotomyRequestForm.cpp 
 
 INCLUDE =	Bureaucrat.hpp \
 			AForm.hpp \
-			ShrubberyCreationForm.hpp 
+			ShrubberyCreationForm.hpp \
+			PresidentialPardonForm.hpp \
+			RobotomyRequestForm.hpp 
+
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
