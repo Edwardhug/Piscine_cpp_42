@@ -7,13 +7,15 @@ SRCS =	main.cpp \
 		AForm.cpp \
 		ShrubberyCreationForm.cpp \
 		PresidentialPardonForm.cpp \
-		RobotomyRequestForm.cpp 
+		RobotomyRequestForm.cpp \
+		Intern.cpp 
 
 INCLUDE =	Bureaucrat.hpp \
 			AForm.hpp \
 			ShrubberyCreationForm.hpp \
 			PresidentialPardonForm.hpp \
-			RobotomyRequestForm.hpp 
+			RobotomyRequestForm.hpp \
+			Intern.hpp 
 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
