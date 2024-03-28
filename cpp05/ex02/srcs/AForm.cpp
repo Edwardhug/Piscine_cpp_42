@@ -35,7 +35,7 @@ int AForm::getToExec() const {
 }
 
 const char *AForm::GradeTooHighException::what() const throw() {
-	return ("grade too high");
+	return ("form isn't signed");
 }
 
 const char *AForm::GradeTooLowException::what() const throw() {

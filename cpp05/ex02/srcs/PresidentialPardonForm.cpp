@@ -1,8 +1,8 @@
 # include "../includes/PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 145, 137), _target("For anyone") {}
+PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5), _target("For anyone") {}
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 145, 137), _target(target) {}
+PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", 25, 5), _target(target) {}
 
 PresidentialPardonForm::~PresidentialPardonForm() {}
 
@@ -16,6 +16,8 @@ PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm
 void	PresidentialPardonForm::execute(Bureaucrat const &executor)const {
 	if (executor.getGrade() > this->getToExec())
 		throw GradeTooLowException();
+	else if (this->getSigned() == false)
+		throw GradeTooHighException();
 	else
 	{
 		
