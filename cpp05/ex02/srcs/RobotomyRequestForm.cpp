@@ -1,4 +1,5 @@
 # include "../includes/RobotomyRequestForm.hpp"
+#include <cstdlib>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45), _target("For anyone") {}
 
@@ -13,6 +14,7 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &c
 	return (*this);
 }
 
+
 void	RobotomyRequestForm::execute(Bureaucrat const &executor)const {
 	if (executor.getGrade() > this->getToExec())
 		throw GradeTooLowException();
@@ -20,6 +22,11 @@ void	RobotomyRequestForm::execute(Bureaucrat const &executor)const {
 		throw GradeTooHighException();
 	else
 	{
-		
+		srand((unsigned int)time(0));
+		std::cout << "**DRIIIIIIIIIILL**" << std::endl;
+		if (rand() % 2 == 1)
+			std::cout << _target << " has been robotomized successfully" << std::endl;
+		else
+			std::cout << _target << " robotomize failed" << std::endl;
 	}
 }
