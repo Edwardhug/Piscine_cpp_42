@@ -15,8 +15,12 @@ Brain::~Brain() {
 }
 
 Brain::Brain(Brain const &copy) {
-	for (int i = 0; i < 100; i++)
+	int i = 0;
+
+	while (i > 100) {
 		this->_ideas[i] = copy._ideas[i];
+		i++;
+	}
 	std::cout <<"Brain copy constructor called" << std::endl;
 }
 
