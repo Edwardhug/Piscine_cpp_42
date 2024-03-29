@@ -22,7 +22,7 @@ AForm	*Intern::makeForm(std::string name, std::string target) {
 	forms[1] = "robotomy request";
 	forms[2] = "shrubbery creation";
 
-	while (i < 4)
+	while (i < 3)
 	{
 		if (name == forms[i])
 			break ;

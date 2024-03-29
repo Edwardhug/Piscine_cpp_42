@@ -59,8 +59,8 @@ int main()
 	AForm *Innovation = Unpayed.makeForm("some kind of good idea", "intern idea");
 	(void)Innovation;
 	AForm *Shrubbery = Unpayed.makeForm("shrubbery creation", "home");
-	AForm *Robot = Unpayed.makeForm("robotomy request", "home");
-	AForm *Presidential = Unpayed.makeForm("presidential pardon", "home");
+	AForm *Robot = Unpayed.makeForm("robotomy request", "unlucky subject");
+	AForm *Presidential = Unpayed.makeForm("presidential pardon", "lucky subject");
 	
 
 	// try to execute without sign
