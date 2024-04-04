@@ -1,5 +1,7 @@
 #include "../includes/ScalarConverter.hpp"
 #include <iostream>
+#include <climits>
+#include <stdlib.h>
 
 ScalarConverter::ScalarConverter() {}
 
@@ -46,27 +48,55 @@ int	ft_atoi(const char *s)
 	return (r);
 }
 
-void	print_char(std::string arg) {
-	std::cout << "char: " << char(ft_atoi(arg.c_str())) << std::endl;
+bool	is_char(std::string arg)
+{
+	if (arg.length() != 1)
+		return false;
+	return (true);
 }
 
-void	print_int(std::string arg) {
-	std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
+bool is_int(std::string arg)
+{
+	long	copy;
+	char	*end;
+
+	copy = strtol(arg.c_str(), &end, 10);
+	if (end == arg.c_str() || *end != 0 || copy > INT_MAX || copy < INT_MIN)
+		return false;
+	return (true);
 }
 
-void	print_float(std::string arg) {
-	float	f = static_cast<float>(ft_atoi(arg.c_str()));
-	std::cout << "float: " << f << std::endl;
+bool is_float(std::string arg)
+{
+	float	copy;
+	char	*end;
+
+	copy = strtof(arg.c_str(), &end);
+	(void)copy;
+	if (end == arg.c_str() || *end != 'f') // maybe other check
+		return false;
+	return true;
 }
 
-void	print_double(std::string arg) {
-	double	f = static_cast<double>(ft_atoi(arg.c_str()));
-	std::cout << "double: " << f << std::endl;
+bool is_double(std::string arg)
+{
+	double	copy;
+	char	*end;
+
+	copy = strtod(arg.c_str(), &end);
+	(void)copy;
+	if (end == arg.c_str() || *end != 0 || arg.find('.') == std::string::npos)
+		return false;
+	return true;
 }
 
 void	ScalarConverter::convert(std::string arg) {
-	print_char(arg);
-	print_int(arg);
-	print_float(arg);
-	print_double(arg);
+	if (is_int(arg))
+		std::cout << "int" << std::endl;
+	else if (is_char(arg))
+		std::cout << "char" << std::endl;
+	else if (is_double(arg))
+		std::cout << "double" << std::endl;
+	else if (is_float(arg))
+		std::cout << "float" << std::endl;
 }
