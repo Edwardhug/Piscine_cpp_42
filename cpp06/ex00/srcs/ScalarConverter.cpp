@@ -48,6 +48,45 @@ int	ft_atoi(const char *s)
 	return (r);
 }
 
+double	ft_atod(std::string arg)
+{
+	double		i;
+	double		a;
+	double		r;
+	int			j;
+
+	i = 0;
+	j = 0;
+	a = 1;
+	r = 0;
+	if (arg[j] == '-' || arg[j] == '+')
+	{	
+		if (arg[j] == '-')
+			a = a * (-1);
+		j++;
+	}
+	while (arg[j] >= '0' && arg[j] <= '9')
+	{
+		r = (arg[j] - '0') + r * 10;
+		j++;
+	}
+	if (arg[j] == '.')
+		j++;
+	while (arg[j] >= '0' && arg[j] <= '9')
+	{
+		r = (arg[j] - '0') + r * 10;
+		j++;
+		i++;
+	}
+	r = r * a;
+	while (i > 0)
+	{
+		r = r / 10;
+		i--;
+	}
+	return (r);
+}
+
 bool	is_char(std::string arg)
 {
 	if (arg.length() != 1)
@@ -90,53 +129,64 @@ bool is_double(std::string arg)
 	return true;
 }
 
+void	print_int(std::string arg)
+{
+	std::cout << "char: ";
+	if ( ft_atoi(arg.c_str()) < 32 || ft_atoi(arg.c_str()) > 126)
+		std::cout << "Non displayable" << std::endl;
+	else
+		std::cout << "'" << static_cast<char>(ft_atoi(arg.c_str())) << "'" << std::endl;
+	std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
+	std::cout << "float: " << static_cast<float>(ft_atod(arg.c_str())) << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(ft_atod(arg.c_str())) << std::endl;
+	return ;
+}
+
+void	print_char(std::string arg)
+{
+	std::cout << "char: ";
+	std::cout << "'" << arg[0] << "'" << std::endl;
+	std::cout << "int: " << static_cast<int>(arg[0]) << std::endl;
+	std::cout << "float: " << static_cast<float>(arg[0]) << ".0f" << std::endl;
+	std::cout << "double: " << static_cast<double>(arg[0]) << ".0" <<std::endl;
+	return ;
+}
+
+void	print_double(std::string arg)
+{
+	std::cout << "char: ";
+	if (ft_atoi(arg.c_str()) < 32 || ft_atoi(arg.c_str()) > 126)
+		std::cout << "Non displayable" << std::endl;
+	else
+		std::cout << "'" << static_cast<char>(ft_atoi(arg.c_str())) << "'" << std::endl;
+	std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
+	std::cout << "float: " << static_cast<float>(ft_atod(arg.c_str())) << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(ft_atod(arg.c_str())) << std::endl;
+	return ;
+}
+
+void	print_float(std::string arg)
+{
+	std::cout << "char: ";
+	if (ft_atoi(arg.c_str()) < 32 || ft_atoi(arg.c_str()) > 126)
+		std::cout << "Non displayable" << std::endl;
+	else
+		std::cout << "'" << static_cast<char>(ft_atoi(arg.c_str())) << "'" << std::endl;
+	std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
+	std::cout << "float: " << static_cast<float>(ft_atod(arg.c_str())) << "f" << std::endl;
+	std::cout << "double: " << static_cast<double>(ft_atod(arg.c_str())) << std::endl;
+	return ;
+}
+
 void	ScalarConverter::convert(std::string arg) {
 	if (is_int(arg))
-	{
-		std::cout << "char: ";
-		if ( ft_atoi(arg.c_str()) < 32 || ft_atoi(arg.c_str()) > 126)
-			std::cout << "Non displayable" << std::endl;
-		else
-			std::cout << "'" << static_cast<char>(ft_atoi(arg.c_str())) << "'" << std::endl;
-		std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
-		std::cout << "float: " << static_cast<float>(ft_atoi(arg.c_str())) << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(ft_atoi(arg.c_str())) << std::endl;
-		return ;
-	}
+		print_int(arg);
 	else if (is_char(arg))
-	{
-		std::cout << "char: ";
-		std::cout << "'" << arg[0] << "'" << std::endl;
-		std::cout << "int: " << static_cast<int>(arg[0]) << std::endl;
-		std::cout << "float: " << static_cast<float>(arg[0]) << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(arg[0]) << std::endl;
-		return ;
-	}
+		print_char(arg);
 	else if (is_double(arg))
-	{
-		std::cout << "char: ";
-		if (arg.length() == 1 && !isdigit(arg[0]))
-			std::cout << "'" << arg[0] << "'" << std::endl;
-		else
-			std::cout << static_cast<char>(ft_atoi(arg.c_str())) << std::endl;
-		std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
-		std::cout << "float: " << static_cast<float>(ft_atoi(arg.c_str())) << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(ft_atoi(arg.c_str())) << std::endl;
-		return ;
-	
-	}
+		print_double(arg);
 	else if (is_float(arg))
-	{
-		std::cout << "char: ";
-		if (arg.length() == 1 && !isdigit(arg[0]))
-			std::cout << "'" << arg[0] << "'" << std::endl;
-		else
-			std::cout << static_cast<char>(ft_atoi(arg.c_str())) << std::endl;
-		std::cout << "int: " << ft_atoi(arg.c_str()) << std::endl;
-		std::cout << "float: " << static_cast<float>(ft_atoi(arg.c_str())) << "f" << std::endl;
-		std::cout << "double: " << static_cast<double>(ft_atoi(arg.c_str())) << std::endl;
-		return ;
-	}
+		print_float(arg);
 	else
 	{
 		std::cout << "char: impossible" << std::endl;
