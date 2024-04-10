@@ -112,7 +112,7 @@ bool is_float(std::string arg)
 
 	copy = strtof(arg.c_str(), &end);
 	(void)copy;
-	if (end == arg.c_str() || *end != 'f') // maybe other check
+	if (end == arg.c_str() || *end != 0 || arg.find('.') == std::string::npos)
 		return false;
 	return true;
 }
@@ -124,7 +124,7 @@ bool is_double(std::string arg)
 
 	copy = strtod(arg.c_str(), &end);
 	(void)copy;
-	if (end == arg.c_str() || *end != 0 || arg.find('.') == std::string::npos)
+	if (end == arg.c_str() || *end != 0)
 		return false;
 	return true;
 }
@@ -178,8 +178,31 @@ void	print_float(std::string arg)
 	return ;
 }
 
+bool	check_execeptions(std::string arg)
+{
+	if (arg == "nan" || arg == "-inf" || arg == "+inf" || arg == "inf")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: " << arg << "f" << std::endl;
+		std::cout << "double: " << arg << std::endl;
+		return true;
+	}
+	else if (arg == "-inff" || arg == "+inff" || arg == "inff")
+	{
+		std::cout << "char: impossible" << std::endl;
+		std::cout << "int: impossible" << std::endl;
+		std::cout << "float: " << arg << std::endl;
+		std::cout << "double: " << arg << std::endl;
+		return true;
+	}
+	return false;
+}
+
 void	ScalarConverter::convert(std::string arg) {
-	if (is_int(arg))
+	if (check_execeptions(arg))
+		return ;
+	else if (is_int(arg))
 		print_int(arg);
 	else if (is_char(arg))
 		print_char(arg);
@@ -189,6 +212,7 @@ void	ScalarConverter::convert(std::string arg) {
 		print_float(arg);
 	else
 	{
+		std::cout << "Error: can't find type" << std::endl;
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
 		std::cout << "float: impossible" << std::endl;
