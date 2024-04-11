@@ -32,6 +32,7 @@ int main(int, char**)
     try
     {
         numbers[-2] = 0;
+		std::cout << "try pass, number = "<< numbers[2] << std::endl; 
     }
     catch(const std::exception& e)
     {
