@@ -6,5 +6,5 @@ int main() {
 
 	iter(chartab, 7, &test_print_function);
 	std::cout << std::endl;
-	iter(&string, 6, &test_print_function);
+	iter(&string[0], string.length(), &test_print_function);
 }
