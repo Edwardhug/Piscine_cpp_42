@@ -1,11 +1,10 @@
-NAME = Cast
+NAME = containers
 CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98
 
-SRCS =	main.cpp \
-		ScalarConverter.cpp 
+SRCS =	main.cpp 
 
-INCLUDE =	ScalarConverter.hpp 
+INCLUDE =	easyfind.hpp 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
