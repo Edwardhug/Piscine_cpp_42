@@ -20,6 +20,8 @@ class Span {
 	void	addNumber(int num);
 	unsigned int	shortestSpan() const;
 	unsigned int	longestSpan() const;
+
+	void	addNumbers(std::vector<int> range);
 };
 
 #endif

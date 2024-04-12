@@ -29,7 +29,7 @@ void	Span::addNumber(int num) {
 unsigned int Span::shortestSpan() const {
 	long unsigned int tmp;
 
-	if (this->_vec.size() == 0 || this->_vec.size() == 1)
+	if (this->_vec.size() < 2)
 		throw (std::exception());
 	else {
 		int smallest = _vec.at(0);
@@ -65,7 +65,7 @@ unsigned int Span::shortestSpan() const {
 unsigned int Span::longestSpan() const {
 	int smallest;
 	int longest;
-	if (this->_vec.size() == 0 || this->_vec.size() == 1)
+	if (this->_vec.size() < 2)
 		throw (std::exception());
 	else {
 		smallest = _vec.at(0);
@@ -78,5 +78,18 @@ unsigned int Span::longestSpan() const {
 				longest = _vec.at(i);
 		}
 		return (longest - smallest);
+	}
+}
+
+void	Span::addNumbers(std::vector<int> range) {
+	long unsigned int global_size;
+
+	global_size = range.size() + _vec.size();
+	if (global_size > _n)
+		throw (std::exception());
+	else {
+		std::vector<int>::iterator range_begin = range.begin();
+		std::vector<int>::iterator range_end = range.end();
+		_vec.insert(_vec.end(), range_begin, range_end);
 	}
 }
