@@ -35,23 +35,29 @@ unsigned int Span::shortestSpan() const {
 		int smallest = _vec.at(0);
 		tmp = 0;
 		for (long unsigned int i = 0; i < _vec.size(); i++) {
-			if (smallest < _vec.at(i)) {
+			if (smallest > _vec.at(i)) {
 				smallest = _vec.at(i);
-				tmp = 0;
+				tmp = i;
 			}
 		}
 		int	second;
+		long unsigned int j;
 		if (tmp == 0) {
 			second = _vec.at(1);
+			j = 1;
 		}
 		else {
 			second = _vec.at(0);
+			j = 0;
 		}
-		for (long unsigned int i = 0; i < _vec.size(); i++) {
-			if (second < _vec.at(i) && i != tmp) {
-				second = _vec.at(i);
+		while (j < _vec.size()) {
+			if (second > _vec.at(j) && j != tmp) {
+				second = _vec.at(j);
 			}
+			j++;
 		}
+		if (second != smallest)
+			second--;
 		return (second - smallest);
 	}
 }
@@ -63,11 +69,12 @@ unsigned int Span::longestSpan() const {
 		throw (std::exception());
 	else {
 		smallest = _vec.at(0);
+		
 		longest = _vec.at(0);
 		for (long unsigned int i = 0; i < _vec.size(); i++) {
-			if (smallest < _vec.at(i))
+			if (smallest > _vec.at(i))
 				smallest = _vec.at(i);
-			if (longest > _vec.at(i))
+			if (longest < _vec.at(i))
 				longest = _vec.at(i);
 		}
 		return (longest - smallest);
