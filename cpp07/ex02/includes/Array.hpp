@@ -34,9 +34,11 @@ class Array {
 	};
 
 	Array &operator=(const Array &copy) {
+		delete[] _array;
+		_array = new T[copy._size];
 		for(unsigned int i = 0; i < copy._size; i++)
 			this->_array[i] = copy._array[i];
-		this->_size = copy->_size;
+		this->_size = copy._size;
 		return (*this);
 	};
 
