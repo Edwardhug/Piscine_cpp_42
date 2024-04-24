@@ -4,7 +4,7 @@ CFLAG = -Wall -Wextra -Werror -std=c++98
 
 SRCS =	main.cpp 
 
-INCLUDE =	easyfind.hpp 
+INCLUDE =	MutanStack.hpp 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
