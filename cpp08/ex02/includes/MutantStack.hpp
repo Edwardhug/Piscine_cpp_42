@@ -26,6 +26,9 @@ class MutantStack : public std::stack<T> {
 	reverse_iterator rbegin() {
 		return (this->c.rbegin());
 	};
+	reverse_iterator crbegin() const {
+		return (this->c.crbegin());
+	};
 
 	iterator end() {
 		return (this->c.end());
@@ -35,6 +38,9 @@ class MutantStack : public std::stack<T> {
 	};
 	reverse_iterator rend() {
 		return (this->c.rend());
+	};
+	reverse_iterator crend() const {
+		return (this->c.crend());
 	};
 };
 
