@@ -9,5 +9,5 @@ int main(int ac, char **av) {
 		return 1;
 	}
 	exchange.fill("data.csv");
-	(void)av;
+	exchange.getPrice(av[1]);
 }

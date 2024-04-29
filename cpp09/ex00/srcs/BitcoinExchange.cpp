@@ -65,3 +65,59 @@ void BitcoinExchange::fill(const char *filename) {
 std::map<int, float> BitcoinExchange::getData() const {
 	return _data;
 }
+
+bool checkDate(int year, int month, int day) {
+	if (year < 2009 || year > 2024) {
+		return false;
+	}
+	if (month < 1 || month > 12) {
+		return false;
+	}
+	if (day < 1 || day > 31) {
+		return false;
+	}
+	if (month == 2 && day > 29) {
+		return false;
+	}
+	return true;
+}
+
+void BitcoinExchange::getPrice(const char *date) const {
+	std::ifstream file(date);
+	if (!file.is_open()) {
+		std::cerr << "Error: could not open file" << std::endl;
+		return;
+	}
+	std::string line;
+	std::getline(file, line);
+	while (std::getline(file, line)) {
+		if (line.size() < 14) {
+			std::cerr << "Error: invalid format" << std::endl;
+		}
+			else {
+			int year = stoi(line.substr(0, 4));
+			int month = stoi(line.substr(5, 2));
+			int day = stoi(line.substr(8, 2));
+			float number = stof(line.substr(11));
+			if (checkDate(year, month, day) == false) {
+				std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
+			}
+			else {
+				int timestamp = year * 10000 + month * 100 + day;
+				if (this->getData()[timestamp] != 0) {
+					std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
+				}
+				else {
+					std::map<int, float>::const_iterator it = this->getData().lower_bound(timestamp);
+					if (it == this->getData().begin()) {
+						std::cerr << "Error: no data available" << std::endl;
+					}
+					else {
+						it--;
+						std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
+					}
+				}
+			}
+		}
+	}
+}

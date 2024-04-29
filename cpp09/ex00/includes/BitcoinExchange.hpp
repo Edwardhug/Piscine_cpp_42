@@ -14,6 +14,7 @@ public:
 	BitcoinExchange &operator=(const BitcoinExchange &copy);
 	void fill(const char *filename);
 	std::map<int, float> getData() const;
+	void getPrice(const char *date) const;
 };
 
 #endif
