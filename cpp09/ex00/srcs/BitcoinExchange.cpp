@@ -26,10 +26,12 @@ int	stoi(const std::string &str) {
 float	stof(const std::string &str) {
 	float result = 0;
 	int i = 0;
-	while (str[i] && str[i] != '.') {
+	while (str[i] && str[i] != '\n' && str[i] != '.') {
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
+	if (!str[i] || str[i] == '\n')
+		return result;
 	i++;
 	float decimal = 0.1;
 	while (str[i]) {
@@ -94,30 +96,30 @@ void BitcoinExchange::getPrice(const char *date) const {
 		if (line.size() < 14) {
 			std::cerr << "Error: invalid format" << std::endl;
 		}
-			else {
-			int year = stoi(line.substr(0, 4));
-			int month = stoi(line.substr(5, 2));
-			int day = stoi(line.substr(8, 2));
-			float number = stof(line.substr(11));
-			if (checkDate(year, month, day) == false) {
-				std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
+		else {
+		int year = stoi(line.substr(0, 4));
+		int month = stoi(line.substr(5, 2));
+		int day = stoi(line.substr(8, 2));
+		float number = stof(line.substr(13));
+		if (checkDate(year, month, day) == false) {
+			std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
+		}
+		else {
+			int timestamp = year * 10000 + month * 100 + day;
+			if (this->getData()[timestamp] != 0) {
+				std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
 			}
 			else {
-				int timestamp = year * 10000 + month * 100 + day;
-				if (this->getData()[timestamp] != 0) {
-					std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
+				std::map<int, float>::const_iterator it = this->getData().lower_bound(timestamp);
+				if (it == this->getData().begin()) {
+					std::cerr << "Error: no data available" << std::endl;
 				}
 				else {
-					std::map<int, float>::const_iterator it = this->getData().lower_bound(timestamp);
-					if (it == this->getData().begin()) {
-						std::cerr << "Error: no data available" << std::endl;
-					}
-					else {
-						it--;
-						std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
-					}
+					it--;
+					std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
 				}
 			}
+		}
 		}
 	}
 }
