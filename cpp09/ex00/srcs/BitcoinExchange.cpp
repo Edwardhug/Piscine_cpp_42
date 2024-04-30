@@ -110,14 +110,10 @@ void BitcoinExchange::getPrice(const char *date) const {
 				std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
 			}
 			else {
-				std::map<int, float>::const_iterator it = this->getData().lower_bound(timestamp);
-				if (it == this->getData().begin()) {
-					std::cerr << "Error: no data available" << std::endl;
-				}
-				else {
-					it--;
-					std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
-				}
+				std::map<int, float>::const_iterator it = this->getData().begin();
+				it++;
+				std::cout << "key: " << it->first << " value: " << it->second << std::endl;
+				
 			}
 		}
 		}
