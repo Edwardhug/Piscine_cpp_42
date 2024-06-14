@@ -143,12 +143,8 @@ void BitcoinExchange::getPrice(const char *date) const {
 					timestamp++;
 				it = this->getData().find(timestamp);
 				it++;
-				std::ostringstream odate;
-				odate << it->first / 10000 << "-" << (it->first / 100) % 100 << "-" << (it->first % 10);
-				std::string	date = odate.str();
-				// std::string date = std::to_string(it->first / 10000) + " - " + std::to_string(it->first / 100);
-				// std::cout << "DATE = " << date << std::endl;
-				std::cout << date << "=> "<< it->second << std::endl;
+				// std::cout << "PASS" << std::endl;
+				std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
 			}
 		}
 		}
