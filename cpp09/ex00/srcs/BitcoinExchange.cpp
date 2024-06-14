@@ -100,6 +100,8 @@ void BitcoinExchange::fill(const char *filename) {
 		day = ft_stoi(line.substr(8, 2));
 		price = ft_stof(line.substr(11));
 		timestamp = year * 10000 + month * 100 + day;
+		if (timestamp == 20110110)
+			std::cout << "PRICE =" << price << std::endl;
 		_data[timestamp] = price;
 	}
 	file.close();
@@ -123,30 +125,30 @@ void BitcoinExchange::getPrice(const char *date) const {
 			std::cerr << "Error: invalid format" << std::endl;
 		}
 		else {
-		int year = ft_stoi(line.substr(0, 4));
-		int month = ft_stoi(line.substr(5, 2));
-		int day = ft_stoi(line.substr(8, 2));
-		float number = ft_stof(line.substr(13));
-		if (number < 0)
-			std::cerr << "Error: not a positive number." << std::endl;
-		else if (checkDate(year, month, day) == false) {
-			std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
-		}
-		else {
-			int timestamp = year * 10000 + month * 100 + day;
-			if (this->getData()[timestamp] != 0) {
-				std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
+			int year = ft_stoi(line.substr(0, 4));
+			int month = ft_stoi(line.substr(5, 2));
+			int day = ft_stoi(line.substr(8, 2));
+			float number = ft_stof(line.substr(13));
+			if (number < 0)
+				std::cerr << "Error: not a positive number." << std::endl;
+			else if (checkDate(year, month, day) == false) {
+				std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
 			}
 			else {
-				std::map<int, float>::const_iterator it;
-				while (this->getData()[timestamp] == 0 && timestamp < 20220329)
-					timestamp++;
-				it = this->getData().find(timestamp);
-				it++;
-				// std::cout << "PASS" << std::endl;
-				std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
+				int timestamp = year * 10000 + month * 100 + day;
+				if (this->getData()[timestamp] != 0) {
+					std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
+				}
+				else {
+					std::map<int, float>::const_iterator it;
+					while (this->getData()[timestamp] == 0)
+						timestamp--;
+					it = this->getData().find(timestamp);
+					// it++;
+					// std::cout << "PASS ="  << it->second << std::endl;
+					std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
+				}
 			}
-		}
 		}
 	}
 	file.close();
