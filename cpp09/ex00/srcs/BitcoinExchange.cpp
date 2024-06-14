@@ -65,6 +65,14 @@ bool checkDate(int year, int month, int day) {
 	return true;
 }
 
+bool isDigit(std::string num) {
+	for (int i = 0; num[i]; i++) {
+		if (num[i] < '0' || num[i] > '9')
+			return false;
+	}
+	return (true);
+}
+
 // METHODES
 
 void BitcoinExchange::fill(const char *filename) {
@@ -107,6 +115,21 @@ void	BitcoinExchange::printPrice(int year, int month, int day, float price) cons
 	
 }
 
+bool	BitcoinExchange::lineIsValid(std::string line) const {
+	if (line.size() < 14) {
+		return (false);
+	}
+	if (isDigit(line.substr(0, 4)) == false || isDigit(line.substr(5, 2)) == false || isDigit(line.substr(8, 2)) == false) {
+		return (false);
+	}
+	if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' ')
+		return (false);
+	std::string lastNum = line.substr(13);
+	if (isDigit(lastNum) == false)
+		return (false);
+	return true;
+}
+
 void BitcoinExchange::getPrice(const char *date) const {
 	std::ifstream file(date);
 	if (!file.is_open()) {
@@ -116,7 +139,7 @@ void BitcoinExchange::getPrice(const char *date) const {
 	std::string line;
 	std::getline(file, line);
 	while (std::getline(file, line)) {
-		if (line.size() < 14) {
+		if (lineIsValid(line) == false) {
 			std::cerr << "Error: invalid format" << std::endl;
 		}
 		else {

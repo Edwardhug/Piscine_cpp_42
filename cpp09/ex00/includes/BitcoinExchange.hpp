@@ -16,6 +16,7 @@ public:
 	std::map<int, float> getData() const;
 	void getPrice(const char *date) const;
 	void	printPrice(int year, int month, int day, float price) const;
+	bool	lineIsValid(std::string line) const;
 };
 
 #endif
