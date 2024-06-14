@@ -27,24 +27,6 @@ int	ft_stoi(const std::string &str) {
 	return result;
 }
 
-// char	*ft_itoa(const int num) {
-// 	std::cout << "num = " << num << std::endl;
-// 	char ret[100];
-
-// 	int i = 0;
-// 	int	size = 0;
-// 	while (num / (size * 10) > 0){
-// 		size++;
-// 	}
-// 	while (i > size) {
-// 		ret[i] = (num / (size - 1)) + '0';
-// 		i++;
-// 	}
-// 	ret[i] = 0;
-// 	std::cout << "ret = " << ret << std::endl;
-// 	return ret;
-// }
-
 float	ft_stof(const std::string &str) {
 	float result = 0;
 	int i = 0;
@@ -100,8 +82,6 @@ void BitcoinExchange::fill(const char *filename) {
 		day = ft_stoi(line.substr(8, 2));
 		price = ft_stof(line.substr(11));
 		timestamp = year * 10000 + month * 100 + day;
-		if (timestamp == 20110110)
-			std::cout << "PRICE =" << price << std::endl;
 		_data[timestamp] = price;
 	}
 	file.close();
@@ -111,6 +91,19 @@ std::map<int, float> BitcoinExchange::getData() const {
 	return _data;
 }
 
+void	BitcoinExchange::printPrice(int year, int month, int day, float price) const {
+	std::cout << year << "-";
+	if (month < 10)
+		std::cout << "0" << month << "-";
+	else
+		std::cout << month << "-";
+	if (day < 10)
+		std::cout << "0" << day << "=> ";
+	else
+		std::cout << day << "=> ";
+	std::cout << price << std::endl;
+	
+}
 
 void BitcoinExchange::getPrice(const char *date) const {
 	std::ifstream file(date);
@@ -137,16 +130,16 @@ void BitcoinExchange::getPrice(const char *date) const {
 			else {
 				int timestamp = year * 10000 + month * 100 + day;
 				if (this->getData()[timestamp] != 0) {
-					std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
+					printPrice(year, month, day, this->getData()[timestamp] * number);
+					// std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
 				}
 				else {
 					std::map<int, float>::const_iterator it;
 					while (this->getData()[timestamp] == 0)
 						timestamp--;
 					it = this->getData().find(timestamp);
-					// it++;
-					// std::cout << "PASS ="  << it->second << std::endl;
-					std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
+					printPrice(year, month, day, it->second * number);
+					// std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
 				}
 			}
 		}
