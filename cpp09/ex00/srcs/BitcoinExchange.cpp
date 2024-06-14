@@ -60,6 +60,8 @@ bool checkDate(int year, int month, int day) {
 	if (month == 2 && day > 29) {
 		return false;
 	}
+	if (month == 2 && year % 4 != 0 && day > 28)
+		return false;
 	return true;
 }
 
@@ -122,7 +124,9 @@ void BitcoinExchange::getPrice(const char *date) const {
 			int month = ft_stoi(line.substr(5, 2));
 			int day = ft_stoi(line.substr(8, 2));
 			float number = ft_stof(line.substr(13));
-			if (number < 0)
+			if (number > 1000)
+				std::cerr << "Error: too large number." << std::endl;
+			else if (number < 0)
 				std::cerr << "Error: not a positive number." << std::endl;
 			else if (checkDate(year, month, day) == false) {
 				std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
@@ -131,7 +135,6 @@ void BitcoinExchange::getPrice(const char *date) const {
 				int timestamp = year * 10000 + month * 100 + day;
 				if (this->getData()[timestamp] != 0) {
 					printPrice(year, month, day, this->getData()[timestamp] * number);
-					// std::cout << year << "-" << month << "-" << day << "=> " << this->getData()[timestamp] * number << std::endl;
 				}
 				else {
 					std::map<int, float>::const_iterator it;
@@ -139,7 +142,6 @@ void BitcoinExchange::getPrice(const char *date) const {
 						timestamp--;
 					it = this->getData().find(timestamp);
 					printPrice(year, month, day, it->second * number);
-					// std::cout << year << "-" << month << "-" << day << "=> " << it->second * number << std::endl;
 				}
 			}
 		}
