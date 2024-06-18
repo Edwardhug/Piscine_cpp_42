@@ -36,8 +36,10 @@ int main()
 		range.push_back(i);
 	}
 	range.push_back(-100);
+	std::vector<int>::iterator begin = range.begin();
+	std::vector<int>::iterator end = range.end();
 	try {
-		big.addNumbers(range);
+		big.addNumbers(begin, end);
 		std::cout << "big shortest span " << big.shortestSpan() << std::endl;
 		std::cout << "big longest span " <<  big.longestSpan() << std::endl;
 	}
