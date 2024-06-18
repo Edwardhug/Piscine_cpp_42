@@ -21,4 +21,16 @@ int main(int ac, char **av) {
 			return 1;
 		}
 	}
+
+	PmergeMe Pmerge;
+
+	try {
+		Pmerge.fillContainers(av);
+	}
+	catch (std::exception &e){
+		std::cout << "Error: Too big number." << std::endl;
+		return (1);
+	}
+	Pmerge.printVec();
+	Pmerge.printDeq();
 }
