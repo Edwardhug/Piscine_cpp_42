@@ -8,5 +8,7 @@ int main(int ac, char **av) {
 	Rpn polish;
 	polish.polishNote(av[1]);
 	if (polish.getStack().empty() == true)
-		std::cout << "Error :wrong arg." << std::endl;
+		std::cout << "Error :Wrong arg." << std::endl;
+	else
+		std::cout << "Result = " << polish.getStack().top() << std::endl;
 }
