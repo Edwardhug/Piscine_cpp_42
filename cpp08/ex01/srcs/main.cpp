@@ -30,11 +30,12 @@ int main()
 		std::cerr << "exception catch, too small vector " << e.what() << std::endl;
 	}
 	std::cout << std::endl;
-	Span big = Span(100000);
+	Span big = Span(100010);
 	std::vector<int> range;
 	for (int i = 0; i < 100000; i++) {
-		range.push_back(std::rand());
+		range.push_back(i);
 	}
+	range.push_back(-100);
 	try {
 		big.addNumbers(range);
 		std::cout << "big shortest span " << big.shortestSpan() << std::endl;

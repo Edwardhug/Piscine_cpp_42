@@ -26,59 +26,26 @@ void	Span::addNumber(int num) {
 		throw (std::exception());
 }
 
-unsigned int Span::shortestSpan() const {
-	long unsigned int tmp;
+int Span::shortestSpan() const {
+	std::vector<int>	sorted;
 
 	if (this->_vec.size() < 2)
 		throw (std::exception());
-	else {
-		int smallest = _vec.at(0);
-		tmp = 0;
-		for (long unsigned int i = 0; i < _vec.size(); i++) {
-			if (smallest > _vec.at(i)) {
-				smallest = _vec.at(i);
-				tmp = i;
-			}
-		}
-		int	second;
-		long unsigned int j;
-		if (tmp == 0) {
-			second = _vec.at(1);
-			j = 1;
-		}
-		else {
-			second = _vec.at(0);
-			j = 0;
-		}
-		while (j < _vec.size()) {
-			if (second > _vec.at(j) && j != tmp) {
-				second = _vec.at(j);
-			}
-			j++;
-		}
-		if (second != smallest)
-			second--;
-		return (second - smallest);
+	sorted = _vec;
+	std::sort(sorted.begin(), sorted.end());
+
+	int span = sorted.at(1) - sorted.at(0);
+	for (unsigned long i = 0; sorted.size() > i && sorted.size() > i + 1; i++) {
+		if (span > (sorted.at(i + 1) - sorted.at(i)))
+			span = sorted.at(i + 1) - sorted.at(i);
 	}
+	return (span);
 }
 
-unsigned int Span::longestSpan() const {
-	int smallest;
-	int longest;
+int Span::longestSpan() const {
 	if (this->_vec.size() < 2)
 		throw (std::exception());
-	else {
-		smallest = _vec.at(0);
-		
-		longest = _vec.at(0);
-		for (long unsigned int i = 0; i < _vec.size(); i++) {
-			if (smallest > _vec.at(i))
-				smallest = _vec.at(i);
-			if (longest < _vec.at(i))
-				longest = _vec.at(i);
-		}
-		return (longest - smallest);
-	}
+	return (*std::max_element(_vec.begin(), _vec.end()) - *std::min_element(_vec.begin(), _vec.end()));
 }
 
 void	Span::addNumbers(std::vector<int> range) {

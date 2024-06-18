@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include <vector>
+# include <algorithm>
 
 class Span {
 	private :
@@ -18,8 +19,8 @@ class Span {
 	Span &operator=(const Span &copy);
 
 	void	addNumber(int num);
-	unsigned int	shortestSpan() const;
-	unsigned int	longestSpan() const;
+	int	shortestSpan() const;
+	int	longestSpan() const;
 
 	void	addNumbers(std::vector<int> range);
 };
