@@ -163,9 +163,9 @@ std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::p
 	return (newVec);
 }
 
-void *last(std::vector<std::pair<void *, void *> *> &toSort) {
+std::pair<void *, void *> *last(std::vector<std::pair<void *, void *> *> &toSort) {
 	if (toSort.size() % 2){
-		return (*toSort.end());
+		return (*(--toSort.end()));
 	}
 	return NULL;
 }
@@ -174,16 +174,21 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 	_deep++;
 	std::cout << "we need to go deeper : " << _deep << std::endl;
 	std::vector<std::pair<void *, void *> *> newVec = pairageVec(toSort);
-	// void * dernier_elem = last(toSort); // renvoi un last si la len est impaire sinon renvoi null
+	std::pair<void *, void *> *dernier_elem = last(toSort); // renvoi un last si la len est impaire sinon renvoi null
 	if (newVec.size() == 1)
 		return newVec;
+	_deep--;
+	if (dernier_elem)
+		std::cout << "dernier element" << data_of_pair(static_cast<std::pair<void *, void*>*>(dernier_elem)) << std::endl;
+	_deep++;
 	std::vector<std::pair<void *, void *>*> return_vec = recursivSortVec(newVec);
-	// if (dernier_elem)
-	// 	std::cout << "dernier element" << data_of_pair(dernier_elem) << std::endl;
-	// (void)dernier_elem;
-	// if (dernier_elem) {
-
-	// }
+	(void)dernier_elem;
+	if (dernier_elem) {
+		std::cout << " y a un ptn de dernier element";
+	} else {
+		std:: cout << "NON";
+	}
+	std :: cout << std::endl;
 
 	//depairage
 	// insertion du dernier element
