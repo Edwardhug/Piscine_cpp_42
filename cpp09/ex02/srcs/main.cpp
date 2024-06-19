@@ -31,9 +31,9 @@ int main(int ac, char **av) {
 		std::cout << "Error: Too big number." << std::endl;
 		return (1);
 	}
-	Pmerge.printVec();
-	Pmerge.printDeq();
-	// Pmerge.sortVec();
+	// Pmerge.printVec();
+	// Pmerge.printDeq();
 	Pmerge.fillPair();
-	Pmerge.printPair();
+	// Pmerge.printPair();
+	Pmerge.sortVecFirst();
 }

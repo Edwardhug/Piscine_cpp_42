@@ -12,8 +12,9 @@ class	PmergeMe {
 
 	std::vector<unsigned int> _vec;
 	std::deque<unsigned int> _deq;
-	std::vector<std::pair<void *, void *> > _pairVec;
-	std::deque<std::pair<void *, void *> > _pairDeq;
+	std::vector<std::pair<unsigned int, unsigned int> *> _pairVec;
+	std::deque<std::pair<void *, void *> *> _pairDeq;
+	int	_deep;
 
 	public :
 
@@ -25,9 +26,16 @@ class	PmergeMe {
 	void	fillContainers(char **av);
 	void	printVec();
 	void	printDeq();
-	void	sortVec();
 	void	fillPair();
-	void	printPair();
+	// void	printPair();
+	void	sortVecFirst();
+
+	private :
+	unsigned int data_of_pair(void * pairi) const;
+	std::vector<std::pair<void *, void *>*>	recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort);
+
+	void compare_and_swap(std::vector<std::pair<void *, void *> *>::iterator it);
+	std::vector<std::pair<void *, void *> *> pairageVec(std::vector<std::pair<void *, void *> *> &toSort);
 };
 
 #endif

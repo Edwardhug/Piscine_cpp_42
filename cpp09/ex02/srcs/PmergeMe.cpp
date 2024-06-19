@@ -17,37 +17,39 @@ unsigned int atoui(char *str) {
 	return (ret);
 }
 
-void	PmergeMe::printPair() {
-	std::vector<std::pair<void *, void*> >::iterator vecBegin = _pairVec.begin();
-	std::cout << "vec pair = ";
-	while (vecBegin != _pairVec.end()) {
-		std::cout << *static_cast<unsigned int*>(vecBegin->first) << " ";
-		vecBegin++;
-	}
-	vecBegin = _pairVec.begin();
-	std::cout << "\n           ";
-	while (vecBegin != _pairVec.end()) {
-		std::cout << *static_cast<unsigned int*>(vecBegin->second) << " ";
-		vecBegin++;
-	}
-	std::cout << std::endl;
+// void	PmergeMe::printPair() {
+// 	std::vector<std::pair<void *, void*> >::iterator vecBegin = _pairVec.begin();
+// 	std::cout << "vec pair = ";
+// 	while (vecBegin != _pairVec.end()) {
+// 		std::cout << *static_cast<unsigned int*>(vecBegin->first) << " ";
+// 		vecBegin++;
+// 	}
+// 	vecBegin = _pairVec.begin();
+// 	std::cout << "\n           ";
+// 	while (vecBegin != _pairVec.end()) {
+// 		std::cout << *static_cast<unsigned int*>(vecBegin->second) << " ";
+// 		vecBegin++;
+// 	}
+// 	std::cout << std::endl;
 
-	std::deque<std::pair<void *, void*> >::iterator deqBegin = _pairDeq.begin();
-	std::cout << "deq pair = ";
-	while (deqBegin != _pairDeq.end()) {
-		std::cout << *static_cast<unsigned int*>(deqBegin->first) << " ";
-		deqBegin++;
-	}
-	deqBegin = _pairDeq.begin();
-	std::cout << "\n           ";
-	while (deqBegin != _pairDeq.end()) {
-		std::cout << *static_cast<unsigned int*>(deqBegin->second) << " ";
-		deqBegin++;
-	}
-	std::cout << std::endl;
+// 	std::deque<std::pair<void *, void*> >::iterator deqBegin = _pairDeq.begin();
+// 	std::cout << "deq pair = ";
+// 	while (deqBegin != _pairDeq.end()) {
+// 		std::cout << *static_cast<unsigned int*>(deqBegin->first) << " ";
+// 		deqBegin++;
+// 	}
+// 	deqBegin = _pairDeq.begin();
+// 	std::cout << "\n           ";
+// 	while (deqBegin != _pairDeq.end()) {
+// 		std::cout << *static_cast<unsigned int*>(deqBegin->second) << " ";
+// 		deqBegin++;
+// 	}
+// 	std::cout << std::endl;
+// }
+
+PmergeMe::PmergeMe() :_deep(0) {
+
 }
-
-PmergeMe::PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
 
@@ -88,28 +90,121 @@ void	PmergeMe::printDeq() {
 void	PmergeMe::fillPair() {
 	std::vector<unsigned int>::iterator	vecBegin = _vec.begin();
 	std::vector<unsigned int>::iterator	vecNext = vecBegin++;
-	std::deque<unsigned int>::iterator	deqBegin = _deq.begin();
-	std::deque<unsigned int>::iterator	deqNext = deqBegin++;
+	// std::deque<unsigned int>::iterator	deqBegin = _deq.begin();
+	// std::deque<unsigned int>::iterator	deqNext = deqBegin++;
 
 	for (size_t i = 0; vecBegin != _vec.end() && vecNext != _vec.end(); i += 2) {
-		if (*vecBegin > *vecNext)
-			_pairVec.push_back(std::make_pair(static_cast<void *>(&(*(vecBegin))), static_cast<void *>(&(*(vecNext)))));
-		else
-			_pairVec.push_back(std::make_pair(static_cast<void *>(&(*(vecNext))), static_cast<void *>(&(*(vecBegin)))));
+		if (*vecBegin > *vecNext) {
+			_pairVec.push_back(new std::pair<unsigned int, unsigned int>(*vecBegin, *vecNext));
+		} else {
+			_pairVec.push_back(new std::pair<unsigned int, unsigned int>(*vecNext, *vecBegin));
+		}
 		vecBegin += 2;
 		vecNext +=2;
 	}
-	// TODO besoin de demander a brieux ce que je dois faire du dernier chiffre si jamais c'est impair
-	for (size_t i = 0; deqBegin != _deq.end() && deqNext != _deq.end(); i += 2) {
-		if (*deqBegin > *deqNext)
-			_pairDeq.push_back(std::make_pair(static_cast<void *>(&(*(deqBegin))), static_cast<void *>(&(*(deqNext)))));
-		else
-			_pairDeq.push_back(std::make_pair(static_cast<void *>(&(*(deqNext))), static_cast<void *>(&(*(deqBegin)))));
-		deqBegin += 2;
-		deqNext +=2;
-	}
-	// TODO ici aussi
+	// for (size_t i = 0; deqBegin != _deq.end() && deqNext != _deq.end(); i += 2) {
+	// 	if (*deqBegin > *deqNext)
+	// 		_pairDeq.push_back(std::make_pair(static_cast<void *>(&(*(deqBegin))), static_cast<void *>(&(*(deqNext)))));
+	// 	else
+	// 		_pairDeq.push_back(std::make_pair(static_cast<void *>(&(*(deqNext))), static_cast<void *>(&(*(deqBegin)))));
+	// 	deqBegin += 2;
+	// 	deqNext +=2;
+	// }
 }
 
-// void	PmergeMe::sortVec() {
-// }
+unsigned int PmergeMe::data_of_pair(void *pairi) const {
+	int i = 0;
+	std::pair<void *, void *> *pair = static_cast<std::pair<void *, void *> *>(pairi);
+	while (i != _deep) {
+		std::cout << "here " << i << std::endl;
+		pair = static_cast<std::pair<void *, void *> *>(pair->first);
+		i++;
+	}
+	std::pair<unsigned int , unsigned int> *ballec = reinterpret_cast<std::pair<unsigned int, unsigned int> * >(pair);
+	return ballec-> first;
+}
+
+void swap(std::vector<std::pair<void *, void *> *>::iterator it) {
+	void * tmp = (*it)->first;
+	(*it)->first = (*it)->second;
+	(*it)->second = tmp;
+}
+
+void PmergeMe::compare_and_swap(std::vector<std::pair<void *, void *> *>::iterator it) {
+	std::pair<void *, void *> *pair = *it;
+	unsigned int	first = data_of_pair(&(pair->first));
+	unsigned int	second = data_of_pair(&(pair->second));
+	if (first < second) {
+		swap(it);
+	}
+	std::cout<< "first = " << first << std::endl;
+	std::cout<< "second = " << second << std::endl;
+	std::cout << "I SWAP BITCHES" << std::endl;
+}
+
+std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::pair<void *, void *> *> &toSort) {
+
+	std::cout << "pairage" << std::endl;
+
+	std::vector<std::pair<void *, void *> *> newVec;
+	for (std::vector<std::pair<void *, void *> *>:: iterator it = toSort.begin() ; it != toSort.end() ; it++) {
+		void * first = *it;
+		it++;
+		if (it == toSort.end())
+			break ;
+		void * second = *it;
+		std::pair<void *, void *> *pair = new std::pair<void*, void*>(first, second);
+		std::cout << "pairage value : "  << std::endl;
+		newVec.push_back(pair);
+	}
+	for (std::vector<std::pair<void *, void *> *>::iterator it = newVec.begin() ; it != newVec.end() ; it++) {
+		compare_and_swap(it);
+	}
+	return (newVec);
+}
+
+void *last(std::vector<std::pair<void *, void *> *> &toSort) {
+	if (toSort.size() % 2){
+		return (*toSort.end());
+	}
+	return NULL;
+}
+
+std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort) {
+	_deep++;
+	std::cout << "we need to go deeper : " << _deep << std::endl;
+	std::vector<std::pair<void *, void *> *> newVec = pairageVec(toSort);
+	// void * dernier_elem = last(toSort); // renvoi un last si la len est impaire sinon renvoi null
+	if (newVec.size() == 1)
+		return newVec;
+	std::vector<std::pair<void *, void *>*> return_vec = recursivSortVec(newVec);
+	// if (dernier_elem)
+	// 	std::cout << "dernier element" << data_of_pair(dernier_elem) << std::endl;
+	// (void)dernier_elem;
+	// if (dernier_elem) {
+
+	// }
+
+	//depairage
+	// insertion du dernier element
+	// if (dernier_elem) {
+	// 	insertion_binaire(newVec, dernier_elem);
+	// }
+	return return_vec;
+}
+
+std::vector<std::pair<void *, void *>* > serializer(std::vector<std::pair<unsigned int, unsigned int>*> toi) {
+	std::vector<std::pair< void * , void *> * > return_val;
+	for (std::vector< std::pair< unsigned int, unsigned int > *>::iterator it = toi.begin() ; it != toi.end() ; it++) {
+		return_val.push_back(reinterpret_cast<std::pair<void *, void *> *>(*it));
+	}
+	return return_val;
+}
+
+void	PmergeMe::sortVecFirst() {
+	std::vector<std::pair<void *, void *> *>	toSort;
+	std::cout << "sort" << std::endl;
+	toSort = serializer(_pairVec);
+	recursivSortVec(toSort);
+
+}
