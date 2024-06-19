@@ -5,12 +5,15 @@
 # include <vector>
 # include <deque>
 # include <exception>
+# include <utility>
 
 class	PmergeMe {
 	private :
 
 	std::vector<unsigned int> _vec;
 	std::deque<unsigned int> _deq;
+	std::vector<std::pair<void *, void *> > _pairVec;
+	std::deque<std::pair<void *, void *> > _pairDeq;
 
 	public :
 
@@ -22,6 +25,9 @@ class	PmergeMe {
 	void	fillContainers(char **av);
 	void	printVec();
 	void	printDeq();
+	void	sortVec();
+	void	fillPair();
+	void	printPair();
 };
 
 #endif

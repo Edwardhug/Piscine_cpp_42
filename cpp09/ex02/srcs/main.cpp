@@ -33,4 +33,7 @@ int main(int ac, char **av) {
 	}
 	Pmerge.printVec();
 	Pmerge.printDeq();
+	// Pmerge.sortVec();
+	Pmerge.fillPair();
+	Pmerge.printPair();
 }
