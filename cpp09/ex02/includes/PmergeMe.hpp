@@ -36,7 +36,10 @@ class	PmergeMe {
 
 	void compare_and_swap(std::vector<std::pair<void *, void *> *>::iterator it);
 	std::vector<std::pair<void *, void *> *> pairageVec(std::vector<std::pair<void *, void *> *> &toSort);
-	std::vector<std::pair<void *, void *>*>	depairageVec(std::vector<std::pair<void *, void *> *> &toDep)
+	std::vector<std::pair<void *, void *>*>	depairageVec(std::vector<std::pair<void *, void *> *> &toDep);
+	std::vector<void *> getOnlyBig(std::vector<std::pair<void *, void *> *> &vec);
+	std::vector<void *> getOnlySmall(std::vector<std::pair<void *, void *> *> &vec);
+
 };
 
 #endif

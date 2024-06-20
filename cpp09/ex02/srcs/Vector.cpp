@@ -43,9 +43,29 @@ std::pair<void *, void *> *last(std::vector<std::pair<void *, void *> *> &toSort
 
 // binaryInsert()
 
-// std::vector<std::pair<void *, void *>*>	PmergeMe::depairageVec(std::vector<std::pair<void *, void *> *> &toDep) {
+std::vector<void *> PmergeMe::getOnlyBig(std::vector<std::pair<void *, void *> *> &vec) {
+	std::vector<void*>	toRet;
 
-// }
+	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		toRet.push_back((*it)->second);
+	}
+	return toRet;
+}
+
+std::vector<void *> PmergeMe::getOnlySmall(std::vector<std::pair<void *, void *> *> &vec) {
+	std::vector<void*>	toRet;
+
+	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		toRet.push_back((*it)->first);
+	}
+	return toRet;
+}
+
+std::vector<std::pair<void *, void *>*>	PmergeMe::depairageVec(std::vector<std::pair<void *, void *> *> &toDep) {
+	std::vector<std::pair<void *, void *>*> afterDep;
+	std::vector<void*>	bigNumber = getOnlyBig(toDep);
+	std::vector<void*>	smallNumber = getOnlySmall(toDep);
+}
 
 std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort) {
 	_deep++;
