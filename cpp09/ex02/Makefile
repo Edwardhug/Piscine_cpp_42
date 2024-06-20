@@ -3,9 +3,12 @@ CC = c++
 CFLAG = -Wall -Wextra -Werror -std=c++98 -g3
 
 SRCS =	main.cpp \
-		PmergeMe.cpp 
+		PmergeMe.cpp \
+		Vector.cpp \
+		utils.cpp 
 
-INCLUDE =	PmergeMe.hpp 
+INCLUDE =	PmergeMe.hpp \
+			lib.hpp 
 OBJS = $(SRCS:%.cpp=$(PATH_OBJS)%.o)
 
 PATH_SRCS = srcs/
