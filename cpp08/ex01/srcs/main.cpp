@@ -46,6 +46,16 @@ int main()
 	catch (std::exception &e) {
 		std::cerr << "exception catch, error with many numbers " << e.what() << std::endl;
 	}
+	int tab[5] = {1, 2, 3, 4, 5};
+	Span unknow (100);
+	try {
+		unknow.addNumbers(tab, tab + 5);
+		std::cout << "unknow shortest span " << unknow.shortestSpan() << std::endl;
+		std::cout << "unknow longest span " <<  unknow.longestSpan() << std::endl;
+	}
+	catch (std::exception &e ){
+		std::cout <<  "unknow test" << std::endl;
+	}
 
 	return 0;
 }

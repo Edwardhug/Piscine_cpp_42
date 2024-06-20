@@ -4,6 +4,7 @@
 # include <iostream>
 # include <vector>
 # include <algorithm>
+# include <iterator>
 
 class Span {
 	private :
@@ -22,7 +23,25 @@ class Span {
 	int	shortestSpan() const;
 	int	longestSpan() const;
 
-	void	addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end);
+	template <typename iterator>
+	void	addNumbers(iterator begin, iterator end) {
+	long unsigned int global_size;
+	size_t rangeSize = 0;
+	iterator copy;
+
+	copy = begin;
+	while (copy != end) {
+		copy++;
+		rangeSize++;
+	}
+	global_size = rangeSize + _vec.size();
+	if (global_size > _n)
+		throw (std::exception());
+	while (begin != end) {
+		_vec.push_back(*begin);
+		begin++;
+	}
+}
 };
 
 #endif

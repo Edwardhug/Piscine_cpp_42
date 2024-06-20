@@ -47,23 +47,3 @@ int Span::longestSpan() const {
 		throw (std::exception());
 	return (*std::max_element(_vec.begin(), _vec.end()) - *std::min_element(_vec.begin(), _vec.end()));
 }
-
-void	Span::addNumbers(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
-	long unsigned int global_size;
-	size_t rangeSize = 0;
-	std::vector<int>::iterator copy;
-
-	copy = begin;
-	while (copy != end) {
-		copy++;
-		rangeSize++;
-	}
-		begin++;
-	global_size = rangeSize + _vec.size();
-	if (global_size > _n)
-		throw (std::exception());
-	while (begin != end) {
-		_vec.push_back(*begin);
-		begin++;
-	}
-}
