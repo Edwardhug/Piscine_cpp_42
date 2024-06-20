@@ -65,6 +65,9 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::depairageVec(std::vector<std::
 	std::vector<std::pair<void *, void *>*> afterDep;
 	std::vector<void*>	bigNumber = getOnlyBig(toDep);
 	std::vector<void*>	smallNumber = getOnlySmall(toDep);
+	//TODO jackobstal insertion in afterDep;
+	std::cout << "TEST" << data_of_pair(*bigNumber.begin()) << std::endl;
+	return afterDep;
 }
 
 std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort) {
