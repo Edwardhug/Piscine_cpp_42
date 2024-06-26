@@ -67,11 +67,11 @@ void	PmergeMe::fillPair() {
 unsigned int PmergeMe::data_of_pair(void *pairi) const {
 	int i = 0;
 	std::pair<void *, void *> *pair = static_cast<std::pair<void *, void *> *>(pairi);
-	while (i != _deep) {
-		std::cout << "here " << i << std::endl;
+	while (i != (_deep - 1)) {
 		pair = static_cast<std::pair<void *, void *> *>(pair->first);
 		i++;
 	}
 	std::pair<unsigned int , unsigned int> *ballec = reinterpret_cast<std::pair<unsigned int, unsigned int> * >(pair);
+	std::cout << "pair->first = " << ballec->first << std::endl;
 	return ballec-> first;
 }
