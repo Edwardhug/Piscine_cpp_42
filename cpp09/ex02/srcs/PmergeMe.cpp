@@ -67,7 +67,7 @@ void	PmergeMe::fillPair() {
 unsigned int PmergeMe::data_of_pair(void *pairi) const {
 	int i = 0;
 	std::pair<void *, void *> *pair = static_cast<std::pair<void *, void *> *>(pairi);
-	while (i != (_deep - 1)) {
+	while (i != (_deep )) {
 		pair = static_cast<std::pair<void *, void *> *>(pair->first);
 		i++;
 	}

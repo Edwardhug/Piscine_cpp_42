@@ -39,6 +39,8 @@ class	PmergeMe {
 	std::vector<std::pair<void *, void *>*>	depairageVec(std::vector<std::pair<void *, void *> *> &toDep);
 	std::vector<void *> getOnlyBig(std::vector<std::pair<void *, void *> *> &vec);
 	std::vector<void *> getOnlySmall(std::vector<std::pair<void *, void *> *> &vec);
+	void binaryInsert(std::vector<void*>& arr, void* value);
+	std::vector<void*> mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller);
 
 };
 
