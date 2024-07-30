@@ -158,6 +158,8 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 
 	return_vec = depairageVec(return_vec);
 
+	_deep--;
+
 	return return_vec;
 
 }

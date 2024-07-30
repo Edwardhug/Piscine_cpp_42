@@ -72,6 +72,6 @@ unsigned int PmergeMe::data_of_pair(void *pairi) const {
 		i++;
 	}
 	std::pair<unsigned int , unsigned int> *ballec = reinterpret_cast<std::pair<unsigned int, unsigned int> * >(pair);
-	std::cout << "pair->first = " << ballec->first << std::endl;
+	// std::cout << "pair->first = " << ballec->first << std::endl;
 	return ballec-> first;
 }
