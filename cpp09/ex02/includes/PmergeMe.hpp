@@ -42,6 +42,8 @@ class	PmergeMe {
 	void binaryInsert(std::vector<void*>& arr, void* value);
 	std::vector<void*> mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller);
 
+	void	print_vec_pair(std::vector<std::pair<void *, void *>*> vec);
+
 };
 
 #endif

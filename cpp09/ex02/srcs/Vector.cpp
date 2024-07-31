@@ -5,12 +5,11 @@ void PmergeMe::compare_and_swap(std::vector<std::pair<void *, void *> *>::iterat
 	std::pair<void *, void *> *pair = *it;
 	unsigned int	first = data_of_pair(&(pair->first));
 	unsigned int	second = data_of_pair(&(pair->second));
+	// std::cout << "first = " << first << std::endl;
+	// std::cout << "second = " << second << std::endl;
 	if (first < second) {
 		swapVector(it);
 	}
-	// std::cout<< "first = " << first << std::endl;
-	// std::cout<< "second = " << second << std::endl;
-	// std::cout << "I SWAP BITCHES" << std::endl;
 }
 
 std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::pair<void *, void *> *> &toSort) {
@@ -139,12 +138,18 @@ std::vector<std::pair<void *, void *>*> PmergeMe::depairageVec(std::vector<std::
 }
 
 std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort) {
+	// std::cout << "before pairage" << std::endl;
+	// print_vec_pair(toSort);
 	_deep++;
 	// std::cout << "we need to go deeper : " << _deep << std::endl;
 	std::vector<std::pair<void *, void *> *> newVec = pairageVec(toSort);
+	// std::cout << "after pairage" << std::endl;
+	// print_vec_pair(newVec);
 	std::pair<void *, void *> *dernier_elem = last(toSort); // renvoi un last si la len est impaire sinon renvoi null
-	if (newVec.size() == 1)
+	if (newVec.size() == 2) {
+		_deep--;
 		return newVec;
+	}
 	if (dernier_elem)
 		std::cout << "dernier element" << data_of_pair(static_cast<std::pair<void *, void*>*>(dernier_elem)) << std::endl;
 	std::vector<std::pair<void *, void *>*> return_vec = recursivSortVec(newVec);
@@ -159,7 +164,6 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 	return_vec = depairageVec(return_vec);
 
 	_deep--;
-
 	return return_vec;
 
 }
@@ -184,7 +188,9 @@ void	PmergeMe::sortVecFirst() {
 	std::vector<std::pair<void *, void *> *>	toSort;
 	// std::cout << "sort" << std::endl;
 	toSort = serializerVector(_pairVec);
-	recursivSortVec(toSort);
+	toSort = recursivSortVec(toSort);
+	// _deep = 2;
+	// print_vec_pair(toSort);
 }
 
 // 1         1            3         5         11         21  
