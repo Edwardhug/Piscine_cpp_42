@@ -76,12 +76,12 @@ unsigned int PmergeMe::data_of_pair(void *pairi) const {
 	return ballec-> first;
 }
 
-void	PmergeMe::print_vec_pair(std::vector<std::pair<void *, void *>*> vec) {
+void	PmergeMe::print_vec_pair(std::vector<std::pair<void *, void *>*> vec, int deep) {
 	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
         void *pairi = *it;
         int i = 0;
         std::pair<void *, void *> *pair = static_cast<std::pair<void *, void *> *>(pairi);
-        while (i != (_deep)) {
+        while (i != (deep)) {
             pair = static_cast<std::pair<void *, void *> *>(pair->first);
             i++;
         }
