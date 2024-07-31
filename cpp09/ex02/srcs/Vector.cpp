@@ -43,22 +43,21 @@ std::pair<void *, void *> *last(std::vector<std::pair<void *, void *> *> &toSort
 // binaryInsert()
 
 std::vector<void *> PmergeMe::getOnlyBig(std::vector<std::pair<void *, void *> *> &vec) {
-	std::vector<void*>	toRet;
-
-	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
-		toRet.push_back((*it)->second);
-	}
-	return toRet;
+    std::vector<void*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        toRet.push_back((*it)->first);
+    }
+    return toRet;
 }
 
 std::vector<void *> PmergeMe::getOnlySmall(std::vector<std::pair<void *, void *> *> &vec) {
-	std::vector<void*>	toRet;
-
-	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
-		toRet.push_back((*it)->first);
-		
-	}
-	return toRet;
+    std::vector<void*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
+        if ((*it)->second != NULL) {
+            toRet.push_back((*it)->second);
+        }
+    }
+    return toRet;
 }
 
 std::vector<unsigned int> generateJacobsthalSequence(unsigned int n) {
@@ -88,20 +87,24 @@ void PmergeMe::binaryInsert(std::vector<std::pair<void*, void*>*>& arr, void* va
 
 std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller) {
     std::vector<std::pair<void *, void *>*> result;
-    
-    for (std::vector<void*>::iterator it = larger.begin(); it != larger.end(); ++it) {
-        result.push_back(new std::pair<void*, void*>(*it, NULL));
+    result.reserve(larger.size() + smaller.size());
+
+    // Insérer d'abord tous les éléments de larger
+    for (std::vector<void*>::size_type i = 0; i < larger.size(); ++i) {
+        result.push_back(new std::pair<void*, void*>(larger[i], NULL));
     }
 
     std::vector<unsigned int> jacobsthal = generateJacobsthalSequence(smaller.size());
     
-    unsigned int lastInserted = 1;
+    unsigned int lastInserted = 1;  // Commencer à 1 car le premier élément est déjà "inséré"
     for (std::vector<unsigned int>::size_type idx = 0; idx < jacobsthal.size(); ++idx) {
         unsigned int j = jacobsthal[idx];
         if (j >= smaller.size()) break;
         
+        // Insérer l'élément à l'index j-1
         binaryInsert(result, smaller[j-1]);
         
+        // Insérer tous les éléments entre lastInserted et j-1, de droite à gauche
         for (int i = static_cast<int>(j) - 2; i >= static_cast<int>(lastInserted); --i) {
             binaryInsert(result, smaller[i]);
         }
@@ -109,7 +112,8 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<voi
         lastInserted = j;
     }
     
-    for (int i = static_cast<int>(smaller.size()) - 1; i >= static_cast<int>(lastInserted); --i) {
+    // Insérer les éléments restants
+    for (std::vector<void*>::size_type i = lastInserted; i < smaller.size(); ++i) {
         binaryInsert(result, smaller[i]);
     }
     
