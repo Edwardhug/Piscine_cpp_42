@@ -53,9 +53,9 @@ std::vector<void *> PmergeMe::getOnlyBig(std::vector<std::pair<void *, void *> *
 std::vector<void *> PmergeMe::getOnlySmall(std::vector<std::pair<void *, void *> *> &vec) {
     std::vector<void*> toRet;
     for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        if ((*it)->second != NULL) {
+        // if ((*it)->second != NULL) {
             toRet.push_back((*it)->second);
-        }
+        // }
     }
     return toRet;
 }
@@ -93,14 +93,16 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<voi
     for (std::vector<void*>::size_type i = 0; i < larger.size(); ++i) {
         result.push_back(new std::pair<void*, void*>(larger[i], NULL));
     }
-	// std::cout << "result = ";
-	// print_vec_pair(result, _deep + 1);
-	// std::cout << std::endl;
+	std::cout << "result = ";
+	print_vec_pair(result, _deep + 1);
+	std::cout << std::endl;
 
     std::vector<unsigned int> jacobsthal = generateJacobsthalSequence(smaller.size());
     
     unsigned int lastInserted = 1;  // Commencer à 1 car le premier élément est déjà "inséré"
+	std::cout << "jacobsthal = " << jacobsthal.size() <<  std::endl;
     for (std::vector<unsigned int>::size_type idx = 0; idx < jacobsthal.size(); ++idx) {
+		std::cout<< "pass" << std::endl;
         unsigned int j = jacobsthal[idx];
         if (j >= smaller.size()) break;
         
@@ -170,36 +172,20 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 
 	_deep--;
 	return return_vec;
-
 }
-// vector main =[] 
-// vecytor avant = [super pair de dingue]
-
-// main = avant.first 
-// pend = avant.second
-
-// pend -> main
-
-// pend[1] comparer avec le 1er eleme 2^n -1
-// ou n est le nombre de sequence d'insertion ( le rang de la suite de jacobshtal )
-// pend[3] comparer avec les 3 premiesr elem
-// pend[2]
-// pend[5] comparer avec les 7 premiers
-// pend[4]
-// pend[11] comparer avec les 15 premiers
-
 
 void	PmergeMe::sortVecFirst() {
 	std::vector<std::pair<void *, void *> *>	toSort;
 	// std::cout << "sort" << std::endl;
 	toSort = serializerVector(_pairVec);
 	toSort = recursivSortVec(toSort);
-	std::cout << "after depairage" << std::endl;
+	// std::cout << "\nBEFORE LAST" << std::endl;
+	// _deep = 1;
+	// toSort = depairageVec(toSort);
+	// std::cout << "after sort";
 	print_vec_pair(toSort, _deep + 2);
+	// std::cout << std::endl;
+	// _vec = lastDepairageVec(toSort);
 	// _deep = 2;
-	// print_vec_pair(toSort);
-}
 
-// 1         1            3         5         11         21  
-// 1                2           2       6           10        
-//                                  2u(n-2) + u(n -1)  = u(n)
+}

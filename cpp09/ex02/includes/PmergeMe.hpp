@@ -42,6 +42,7 @@ class	PmergeMe {
 	void binaryInsert(std::vector<std::pair<void*, void*>*>& arr, void* value);
 	std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller);
 	std::vector<std::pair<void *, void *>*> depairageVec(std::vector<std::pair<void *, void *> *> &toDep);
+	std::vector<unsigned int>	lastDepairageVec(std::vector<std::pair<void *, void *> *> &toSort);
 
 	void	print_vec_pair(std::vector<std::pair<void *, void *>*> vec, int deep);
 
