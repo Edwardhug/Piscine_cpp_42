@@ -105,7 +105,8 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<voi
         if (j >= smaller.size()) break;
         
         // Insérer l'élément à l'index j-1
-        binaryInsert(result, smaller[j-1]);
+		if (idx == 0)	// ? tentative de regler le probleme des 5 pairs au lieu des 4
+        	binaryInsert(result, smaller[j-1]);
         
         // Insérer tous les éléments entre lastInserted et j-1, de droite à gauche
         for (int i = static_cast<int>(j) - 2; i >= static_cast<int>(lastInserted); --i) {
@@ -164,8 +165,8 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 	// std::cout << "before depairage" << std::endl;
 	// print_vec_pair(return_vec, _deep + 1);
 	return_vec = depairageVec(return_vec);
-	std::cout << "after depairage" << std::endl;
-	print_vec_pair(return_vec, _deep + 1);
+	// std::cout << "after depairage" << std::endl;
+	// print_vec_pair(return_vec, _deep + 1);
 
 	_deep--;
 	return return_vec;
@@ -193,6 +194,8 @@ void	PmergeMe::sortVecFirst() {
 	// std::cout << "sort" << std::endl;
 	toSort = serializerVector(_pairVec);
 	toSort = recursivSortVec(toSort);
+	std::cout << "after depairage" << std::endl;
+	print_vec_pair(toSort, _deep + 2);
 	// _deep = 2;
 	// print_vec_pair(toSort);
 }
