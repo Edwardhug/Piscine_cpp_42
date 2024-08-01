@@ -93,6 +93,9 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<voi
     for (std::vector<void*>::size_type i = 0; i < larger.size(); ++i) {
         result.push_back(new std::pair<void*, void*>(larger[i], NULL));
     }
+	// std::cout << "result = ";
+	// print_vec_pair(result, _deep + 1);
+	// std::cout << std::endl;
 
     std::vector<unsigned int> jacobsthal = generateJacobsthalSequence(smaller.size());
     
@@ -158,8 +161,8 @@ std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<st
 	}
 	// std :: cout << std::endl;
 
-	std::cout << "before depairage" << std::endl;
-	print_vec_pair(return_vec, _deep + 1);
+	// std::cout << "before depairage" << std::endl;
+	// print_vec_pair(return_vec, _deep + 1);
 	return_vec = depairageVec(return_vec);
 	std::cout << "after depairage" << std::endl;
 	print_vec_pair(return_vec, _deep + 1);
