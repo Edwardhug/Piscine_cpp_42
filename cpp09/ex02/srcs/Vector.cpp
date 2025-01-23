@@ -93,9 +93,9 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<voi
     for (std::vector<void*>::size_type i = 0; i < larger.size(); ++i) {
         result.push_back(new std::pair<void*, void*>(larger[i], NULL));
     }
-	std::cout << "result = ";
-	print_vec_pair(result, _deep + 1);
-	std::cout << std::endl;
+	// std::cout << "result = ";
+	// print_vec_pair(result, _deep + 1);
+	// std::cout << std::endl;
 
     std::vector<unsigned int> jacobsthal = generateJacobsthalSequence(smaller.size());
     
@@ -183,9 +183,38 @@ void	PmergeMe::sortVecFirst() {
 	// _deep = 1;
 	// toSort = depairageVec(toSort);
 	// std::cout << "after sort";
-	print_vec_pair(toSort, _deep + 2);
+	// print_vec_pair(toSort, _deep + 2);
 	// std::cout << std::endl;
 	// _vec = lastDepairageVec(toSort);
 	// _deep = 2;
 
 }
+
+for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end() && (it + 1) != _vec.end(); it += 2) {	
+		if ((*(static_cast<unsigned long int *>(*it))) > (*(static_cast<unsigned long int *>(*(it + 1))))) {
+			_pairVec.push_back(new std::pair<void *, void *>(*it, *(it + 1)));
+		}
+		else { 
+			_pairVec.push_back(new std::pair<void *, void *>(*(it + 1), *it));
+		}
+	}
+	if (_vec.size() % 2 == 1) {
+		for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); it ++) {
+			if ((it + 1) == _vec.end())
+				_pairVec.push_back(new std::pair<void *, void *>(*it, NULL));
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
