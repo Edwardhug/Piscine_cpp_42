@@ -1,220 +1,146 @@
 #include "../includes/PmergeMe.hpp"
 #include "../includes/lib.hpp"
+#include <algorithm>
 
-void PmergeMe::compare_and_swap(std::vector<std::pair<void *, void *> *>::iterator it) {
-	std::pair<void *, void *> *pair = *it;
-	unsigned int	first = data_of_pair(&(pair->first));
-	unsigned int	second = data_of_pair(&(pair->second));
-	// std::cout << "first = " << first << std::endl;
-	// std::cout << "second = " << second << std::endl;
-	if (first < second) {
-		swapVector(it);
+std::vector<std::pair<void *, void *>*> PmergeMe::getPairVec() {
+	return (_pairVec);
+}
+
+void PmergeMe::fillVector(char **av) {
+    for (size_t i = 1; av[i]; i++) {
+        _vec.push_back(atoui(av[i]));
+    }
+	for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); it ++) {
+		_pairVec.push_back(new std::pair<void *, void *>(*it, NULL));
 	}
 }
 
-std::vector<std::pair<void *, void *> *>	PmergeMe::pairageVec(std::vector<std::pair<void *, void *> *> &toSort) {
+unsigned long int	PmergeMe::dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it) {
+	int i = 0;
+	std::pair<void *, void *> *pair = static_cast<std::pair<void *, void *> *>(*it);
+	while (i != (_deep )) {
+		pair = static_cast<std::pair<void *, void *> *>(pair->first);
+		i++;
+	}
+	std::pair<unsigned int , unsigned int> *result = reinterpret_cast<std::pair<unsigned int, unsigned int> * >(pair);
+	return result-> first;
+}
 
-	// std::cout << "pairage" << std::endl;
+void	PmergeMe::freeVecPair(std::vector<std::pair<void *, void *> *> vec) {
+	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		delete(*it);
+	}
+}
 
+std::vector<std::pair<void *, void *> *>	PmergeMe::pairingVec(std::vector<std::pair<void *, void *> *> &toSort) {
 	std::vector<std::pair<void *, void *> *> newVec;
-	for (std::vector<std::pair<void *, void *> *>:: iterator it = toSort.begin() ; it != toSort.end() ; it++) {
-		void * first = *it;
-		it++;
-		if (it == toSort.end())
-			break ;
-		void * second = *it;
-		std::pair<void *, void *> *pair = new std::pair<void*, void*>(first, second);
-		// std::cout << "pairage value : "  << std::endl;
-		newVec.push_back(pair);
+	for (std::vector<std::pair<void *, void *> *>::iterator it = toSort.begin(); it != toSort.end() && (it + 1) != toSort.end(); it += 2) {
+		if (dataOfPairVector(it) > dataOfPairVector(it + 1))
+			newVec.push_back(new std::pair<void*, void*>(*it, *(it + 1)));
+		else
+			newVec.push_back(new std::pair<void*, void*>(*(it + 1), *it));
 	}
-	for (std::vector<std::pair<void *, void *> *>::iterator it = newVec.begin() ; it != newVec.end() ; it++) {
-		compare_and_swap(it);
+	if (toSort.size() % 2 == 1) {
+		for (std::vector<std::pair<void *, void *> *>::iterator it = toSort.begin(); it != toSort.end(); it ++) {
+			if ((it + 1) == toSort.end())
+				newVec.push_back(new std::pair<void *, void *>(*it, NULL));
+		}
 	}
-	return (newVec);
+	return newVec;
 }
 
-std::pair<void *, void *> *last(std::vector<std::pair<void *, void *> *> &toSort) {
-	if (toSort.size() % 2){
-		return (*(--toSort.end()));
-	}
-	return NULL;
-}
-
-// binaryInsert()
-
-std::vector<void *> PmergeMe::getOnlyBig(std::vector<std::pair<void *, void *> *> &vec) {
-    std::vector<void*> toRet;
-    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        toRet.push_back((*it)->first);
+std::vector<std::pair<void *, void *>*> PmergeMe::getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<std::pair<void *, void *>*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+        toRet.push_back(static_cast<std::pair<void *, void *> *>((*it)->first));
     }
     return toRet;
 }
 
-std::vector<void *> PmergeMe::getOnlySmall(std::vector<std::pair<void *, void *> *> &vec) {
-    std::vector<void*> toRet;
-    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); ++it) {
-        // if ((*it)->second != NULL) {
-            toRet.push_back((*it)->second);
-        // }
+std::vector<std::pair<void *, void *>*> PmergeMe::getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec) {
+    std::vector<std::pair<void *, void *>*> toRet;
+    for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		if ((*it)->second != NULL)
+        	toRet.push_back(static_cast<std::pair<void *, void *> *>((*it)->second));
     }
     return toRet;
 }
 
-std::vector<unsigned int> generateJacobsthalSequence(unsigned int n) {
-    std::vector<unsigned int> sequence;
-    unsigned int a = 0, b = 1;
-    while (b < n) {
-        sequence.push_back(b);
-        unsigned int next = b + 2 * a;
-        a = b;
-        b = next;
-    }
-    return sequence;
+std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::pair<void *, void *> *> &toDep) {
+	std::vector<std::pair<void *, void *>*> bigNumber = getOnlyBigVec(toDep);
+    std::vector<std::pair<void *, void *>*> smallNumber = getOnlySmallVec(toDep);
+
+	std::vector<std::pair<void *, void *>*> afterDep = mergeInsertionVec(bigNumber, smallNumber);
+	return (afterDep);
 }
 
-void PmergeMe::binaryInsert(std::vector<std::pair<void*, void*>*>& arr, void* value) {
-    int left = 0, right = static_cast<int>(arr.size()) - 1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (data_of_pair(arr[mid]->first) < data_of_pair(value))
-            left = mid + 1;
-        else
-            right = mid - 1;
+std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
+	_deep++;
+
+	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+		_deep--;
+		return (before);
+	}
+	std::vector<std::pair<void *, void *> *> newVec = pairingVec(before); // fais le pairage
+	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
+
+	retVec = depairingVec(retVec);
+	for (std::vector<std::pair<void *, void *> *>::iterator it = newVec.begin(); it != newVec.end(); ++it) {
+        delete *it;
     }
-    std::vector<std::pair<void*, void*>*>::iterator it = arr.begin() + left;
-    arr.insert(it, new std::pair<void*, void*>(value, NULL));
+	_deep--;
+	return (retVec);
 }
 
-std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller) {
+void	PmergeMe::sortVec() {
+	std::vector<std::pair<void *, void *> *> toSort;
+	setBeforeVec();
+	_result = recursiveSortVec(_pairVec);
+	setAfterVec();
+}
+
+
+
+
+std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers) {
     std::vector<std::pair<void *, void *>*> result;
-    result.reserve(larger.size() + smaller.size());
-
-    // Insérer d'abord tous les éléments de larger
-    for (std::vector<void*>::size_type i = 0; i < larger.size(); ++i) {
-        result.push_back(new std::pair<void*, void*>(larger[i], NULL));
+    result.reserve(bigNumbers.size() + smallNumbers.size());
+    result = bigNumbers;
+    if (smallNumbers.empty()) {
+        return result;
     }
-	// std::cout << "result = ";
-	// print_vec_pair(result, _deep + 1);
-	// std::cout << std::endl;
-
-    std::vector<unsigned int> jacobsthal = generateJacobsthalSequence(smaller.size());
-    
-    unsigned int lastInserted = 1;  // Commencer à 1 car le premier élément est déjà "inséré"
-	std::cout << "jacobsthal = " << jacobsthal.size() <<  std::endl;
-    for (std::vector<unsigned int>::size_type idx = 0; idx < jacobsthal.size(); ++idx) {
-		std::cout<< "pass" << std::endl;
-        unsigned int j = jacobsthal[idx];
-        if (j >= smaller.size()) break;
-        
-        // Insérer l'élément à l'index j-1
-		if (idx == 0)	// ? tentative de regler le probleme des 5 pairs au lieu des 4
-        	binaryInsert(result, smaller[j-1]);
-        
-        // Insérer tous les éléments entre lastInserted et j-1, de droite à gauche
-        for (int i = static_cast<int>(j) - 2; i >= static_cast<int>(lastInserted); --i) {
-            binaryInsert(result, smaller[i]);
+    std::vector<size_t> jacobsthal;
+    jacobsthal.push_back(1);
+    jacobsthal.push_back(3);
+    while (jacobsthal.back() < smallNumbers.size()) {
+        jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
+    }
+    for (size_t i = 0; i < smallNumbers.size(); ++i) {
+        std::pair<void *, void *>* toInsert = smallNumbers[i];
+        size_t left = 0;
+        size_t right = result.size();
+        while (left < right) {
+            size_t mid = left + (right - left) / 2;
+            if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + i)) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
         }
-        
-        lastInserted = j;
-    }
-    
-    // Insérer les éléments restants
-    for (std::vector<void*>::size_type i = lastInserted; i < smaller.size(); ++i) {
-        binaryInsert(result, smaller[i]);
-    }
-    
+
+        result.insert(result.begin() + left, toInsert);
+	}
     return result;
 }
 
-std::vector<std::pair<void *, void *>*> PmergeMe::depairageVec(std::vector<std::pair<void *, void *> *> &toDep) {
-    std::vector<void*> bigNumber = getOnlyBig(toDep);
-    std::vector<void*> smallNumber = getOnlySmall(toDep);
-    
-    // Perform merge insertion
-    std::vector<std::pair<void *, void *>*> afterDep = mergeInsertion(bigNumber, smallNumber);
-    
-    // Clean up the old pairs
-    for (std::vector<std::pair<void *, void *> *>::size_type i = 0; i < toDep.size(); ++i) {
-        delete toDep[i];
-    }
-    return afterDep;
+void	PmergeMe::setBeforeVec() {
+	_beforeVec = getCurrentTimeInMilliseconds();
 }
 
-std::vector<std::pair<void *, void *>*>	PmergeMe::recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort) {
-	// std::cout << "before pairage" << std::endl;
-	// print_vec_pair(toSort);
-	_deep++;
-	// std::cout << "we need to go deeper : " << _deep << std::endl;
-	std::vector<std::pair<void *, void *> *> newVec = pairageVec(toSort);
-	// std::cout << "after pairage" << std::endl;
-	// print_vec_pair(newVec);
-	std::pair<void *, void *> *dernier_elem = last(toSort); // renvoi un last si la len est impaire sinon renvoi null
-	if (newVec.size() == 2) {
-		_deep--;
-		return newVec;
-	}
-	if (dernier_elem)
-		std::cout << "dernier element" << data_of_pair(static_cast<std::pair<void *, void*>*>(dernier_elem)) << std::endl;
-	std::vector<std::pair<void *, void *>*> return_vec = recursivSortVec(newVec);
-	(void)dernier_elem;
-	if (dernier_elem) {
-		std::cout << " y a un ptn de dernier element";
-	} else {
-		// std:: cout << "NON";
-	}
-	// std :: cout << std::endl;
-
-	// std::cout << "before depairage" << std::endl;
-	// print_vec_pair(return_vec, _deep + 1);
-	return_vec = depairageVec(return_vec);
-	// std::cout << "after depairage" << std::endl;
-	// print_vec_pair(return_vec, _deep + 1);
-
-	_deep--;
-	return return_vec;
+void	PmergeMe::setAfterVec() {
+	_afterVec = getCurrentTimeInMilliseconds();
 }
 
-void	PmergeMe::sortVecFirst() {
-	std::vector<std::pair<void *, void *> *>	toSort;
-	// std::cout << "sort" << std::endl;
-	toSort = serializerVector(_pairVec);
-	toSort = recursivSortVec(toSort);
-	// std::cout << "\nBEFORE LAST" << std::endl;
-	// _deep = 1;
-	// toSort = depairageVec(toSort);
-	// std::cout << "after sort";
-	// print_vec_pair(toSort, _deep + 2);
-	// std::cout << std::endl;
-	// _vec = lastDepairageVec(toSort);
-	// _deep = 2;
-
+void	PmergeMe::printTimeVec() {
+	std::cout << "Time to process a range of " << _pairVec.size() << " elements with std::vector : " << _afterVec - _beforeVec << "us" << std::endl;
 }
-
-for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end() && (it + 1) != _vec.end(); it += 2) {	
-		if ((*(static_cast<unsigned long int *>(*it))) > (*(static_cast<unsigned long int *>(*(it + 1))))) {
-			_pairVec.push_back(new std::pair<void *, void *>(*it, *(it + 1)));
-		}
-		else { 
-			_pairVec.push_back(new std::pair<void *, void *>(*(it + 1), *it));
-		}
-	}
-	if (_vec.size() % 2 == 1) {
-		for (std::vector<void *>::iterator it = _vec.begin(); it != _vec.end(); it ++) {
-			if ((it + 1) == _vec.end())
-				_pairVec.push_back(new std::pair<void *, void *>(*it, NULL));
-		}
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,51 +1,76 @@
-#ifndef PMERGEME_HPP
-# define PMERGEME_HPP
+#ifndef PMERGEME_CPP
+# define PMERGEME_CPP
 
-# include <iostream>
 # include <vector>
 # include <deque>
-# include <exception>
 # include <utility>
+# include <iostream>
+# include "lib.hpp"
 
-class	PmergeMe {
-	private :
+class PmergeMe {
 
-	std::vector<unsigned int> _vec;
-	std::deque<unsigned int> _deq;
-	std::vector<std::pair<unsigned int, unsigned int> *> _pairVec;
-	std::deque<std::pair<void *, void *> *> _pairDeq;
-	int	_deep;
+	private:
+		int _deep;
+		std::vector<void *> _vec;
+		std::vector<std::pair<void *, void *>*> _pairVec;
+		std::vector<std::pair<void *, void *>*> _result;
 
-	public :
+		long	_beforeVec;
+		long	_afterVec;
 
-	PmergeMe();
-	~PmergeMe();
-	PmergeMe(const PmergeMe &copy);
-	PmergeMe &operator=(const PmergeMe &copy);
+	public:
 
-	void	fillContainers(char **av);
-	void	printVec();
-	void	printDeq();
-	void	fillPair();
-	// void	printPair();
-	void	sortVecFirst();
+		PmergeMe();
+		~PmergeMe();
+		PmergeMe(PmergeMe const &copy);
+		PmergeMe &operator=(PmergeMe const &copy);
+		void	fillVector(char **av);
+		void	sortVec();
+		std::vector<std::pair<void *, void *> *>	recursiveSortVec(std::vector<std::pair<void *, void *> *> before);
+		unsigned long int	dataOfPairVector(std::vector<std::pair<void *, void *> *>::iterator it);
+		std::vector<std::pair<void *, void *> *>	pairingVec(std::vector<std::pair<void *, void *> *> &toSort);
+		std::vector<std::pair<void *, void *> *>	depairingVec(std::vector<std::pair<void *, void *> *> &toDep);
+		std::vector<std::pair<void *, void *>*>	getOnlyBigVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*>	getOnlySmallVec(std::vector<std::pair<void *, void *> *> &vec);
+		std::vector<std::pair<void *, void *>*> mergeInsertionVec(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers);
 
-	private :
-	unsigned int data_of_pair(void * pairi) const;
-	std::vector<std::pair<void *, void *>*>	recursivSortVec(std::vector<std::pair<void *, void *> *> &toSort);
+		void	printResult(std::vector<std::pair<void *, void *> *> vec);
+		void	freeVecPair(std::vector<std::pair<void *, void *> *> vec);
 
-	void compare_and_swap(std::vector<std::pair<void *, void *> *>::iterator it);
-	std::vector<std::pair<void *, void *> *> pairageVec(std::vector<std::pair<void *, void *> *> &toSort);
-	// std::vector<std::pair<void *, void *>*>	depairageVec(std::vector<std::pair<void *, void *> *> &toDep);
-	std::vector<void *> getOnlyBig(std::vector<std::pair<void *, void *> *> &vec);
-	std::vector<void *> getOnlySmall(std::vector<std::pair<void *, void *> *> &vec);
-	void binaryInsert(std::vector<std::pair<void*, void*>*>& arr, void* value);
-	std::vector<std::pair<void *, void *>*> mergeInsertion(std::vector<void*>& larger, std::vector<void*>& smaller);
-	std::vector<std::pair<void *, void *>*> depairageVec(std::vector<std::pair<void *, void *> *> &toDep);
-	std::vector<unsigned int>	lastDepairageVec(std::vector<std::pair<void *, void *> *> &toSort);
+		std::vector<std::pair<void *, void *>*> getResult();
+		std::vector<std::pair<void *, void *>*>	getPairVec();
+		void	setDeep(int x);
+		void	setBeforeVec();
+		void	setAfterVec();
+		void	printTimeVec();
 
-	void	print_vec_pair(std::vector<std::pair<void *, void *>*> vec, int deep);
+	private:
+		std::deque<void *> _deq;
+		std::deque<std::pair<void *, void *>*> _pairDeq;
+		std::deque<std::pair<void *, void *>*> _resultDeq;
 
+		long	_beforeDeq;
+		long	_afterDeq;
+
+	public:
+
+		void	fillDeque(char **av);
+		void	sortDeq();
+		std::deque<std::pair<void *, void *> *>	recursiveSortDeq(std::deque<std::pair<void *, void *> *> before);
+		unsigned long int	dataOfPairDeque(std::deque<std::pair<void *, void *> *>::iterator it);
+		std::deque<std::pair<void *, void *> *>	pairingDeq(std::deque<std::pair<void *, void *> *> &toSort);
+		std::deque<std::pair<void *, void *> *>	depairingDeq(std::deque<std::pair<void *, void *> *> &toDep);
+		std::deque<std::pair<void *, void *>*>	getOnlyBigDeq(std::deque<std::pair<void *, void *> *> &vec);
+		std::deque<std::pair<void *, void *>*>	getOnlySmallDeq(std::deque<std::pair<void *, void *> *> &vec);
+		std::deque<std::pair<void *, void *>*> mergeInsertionDeq(std::deque<std::pair<void *, void *>*>& bigNumbers, std::deque<std::pair<void *, void *>*>& smallNumbers);
+
+		void	printResult(std::deque<std::pair<void *, void *> *> vec);
+		void	freeDeqPair(std::deque<std::pair<void *, void *> *> vec);
+
+		std::deque<std::pair<void *, void *>*>	getPairDeq();
+		void	setBeforeDeq();
+		void	setAfterDeq();
+		void	printTimeDeq();
 };
 
 #endif

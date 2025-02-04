@@ -3,8 +3,7 @@
 
 # include "PmergeMe.hpp"
 
-void swapVector(std::vector<std::pair<void *, void *> *>::iterator it);
-unsigned int atoui(char *str);
-std::vector<std::pair<void *, void *>* > serializerVector(std::vector<std::pair<unsigned int, unsigned int>*> toi);
+void *atoui(char *str);
+long long getCurrentTimeInMilliseconds();
 
 #endif

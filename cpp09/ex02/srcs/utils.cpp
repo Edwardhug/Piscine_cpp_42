@@ -1,33 +1,39 @@
-#include "../includes/lib.hpp"
-#include "../includes/PmergeMe.hpp"
+# include "../includes/lib.hpp"
+# include "../includes/PmergeMe.hpp"
+# include <sys/time.h>
+# include <ctime>
 
-unsigned int atoui(char *str) {
-	unsigned long int ret = 0;
+void *atoui(char *str) {
+	unsigned long int ret;
+	ret = 0;
 	int i = 0;
 	int	j = 1;
 
 	while (str[i] && str[i + 1]) 
 		i++;
 	while (i >= 0) {
+
 		ret += (str[i] - '0') * j;
 		j *= 10;
 		i--;
+		if (ret > 4294967295) {
+			throw (std::exception());
+		}
 	}
-	if (ret > 4294967295)
-		throw (std::exception());
-	return (ret);
+	void *addr = new unsigned long int(ret);
+	return (addr);
 }
 
-void swapVector(std::vector<std::pair<void *, void *> *>::iterator it) {
-	void * tmp = (*it)->first;
-	(*it)->first = (*it)->second;
-	(*it)->second = tmp;
+void	PmergeMe::printResult(std::vector<std::pair<void *, void *> *> vec) {
+	_deep = 1;
+	for (std::vector<std::pair<void *, void *> *>::iterator it = vec.begin(); it != vec.end(); it++) {
+		std::cout << dataOfPairVector(it) << " ";
+	}
+	std::cout << std::endl;
 }
 
-std::vector<std::pair<void *, void *>* > serializerVector(std::vector<std::pair<unsigned int, unsigned int>*> toi) {
-	std::vector<std::pair< void * , void *> * > return_val;
-	for (std::vector< std::pair< unsigned int, unsigned int > *>::iterator it = toi.begin() ; it != toi.end() ; it++) {
-		return_val.push_back(reinterpret_cast<std::pair<void *, void *> *>(*it));
-	}
-	return return_val;
+long long	getCurrentTimeInMilliseconds() {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return tv.tv_sec * 1000000LL + tv.tv_usec;
 }
