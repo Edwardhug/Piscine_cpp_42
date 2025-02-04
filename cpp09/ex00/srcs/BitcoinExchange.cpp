@@ -97,7 +97,7 @@ void BitcoinExchange::fill(const char *filename) {
 	file.close();
 }
 
-std::map<int, float> BitcoinExchange::getData() const {
+const std::map<int, float> &BitcoinExchange::getData() const {
 	return _data;
 }
 
@@ -131,43 +131,57 @@ bool	BitcoinExchange::lineIsValid(std::string line) const {
 }
 
 void BitcoinExchange::getPrice(const char *date) const {
-	std::ifstream file(date);
-	if (!file.is_open()) {
-		std::cerr << "Error: could not open file" << std::endl;
-		return;
+    std::ifstream file(date);
+    if (!file.is_open()) {
+        std::cerr << "Error: could not open file" << std::endl;
+        return;
+    }
+
+    const std::map<int, float>& dataMap = this->getData();
+    std::string line;
+    std::getline(file, line);
+	if (line != "date | value") {
+		std::cerr << "Error: First line must be \"date | value\"" << std::endl;
+		file.close();
+		return ;
 	}
-	std::string line;
-	std::getline(file, line);
-	while (std::getline(file, line)) {
-		if (lineIsValid(line) == false) {
-			std::cerr << "Error: invalid format" << std::endl;
-		}
-		else {
-			int year = ft_stoi(line.substr(0, 4));
-			int month = ft_stoi(line.substr(5, 2));
-			int day = ft_stoi(line.substr(8, 2));
-			float number = ft_stof(line.substr(13));
-			if (number > 1000)
-				std::cerr << "Error: too large number." << std::endl;
-			else if (number < 0)
-				std::cerr << "Error: not a positive number." << std::endl;
-			else if (checkDate(year, month, day) == false) {
-				std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
-			}
-			else {
-				int timestamp = year * 10000 + month * 100 + day;
-				if (this->getData()[timestamp] != 0) {
-					printPrice(year, month, day, this->getData()[timestamp] * number);
-				}
-				else {
-					std::map<int, float>::const_iterator it;
-					while (this->getData()[timestamp] == 0)
-						timestamp--;
-					it = this->getData().find(timestamp);
-					printPrice(year, month, day, it->second * number);
-				}
-			}
-		}
-	}
-	file.close();
+
+    while (std::getline(file, line)) {
+        if (!lineIsValid(line)) {
+            std::cerr << "Error: invalid format" << std::endl;
+            continue;
+        }
+
+        int year = ft_stoi(line.substr(0, 4));
+        int month = ft_stoi(line.substr(5, 2));
+        int day = ft_stoi(line.substr(8, 2));
+        float number = ft_stof(line.substr(13));
+
+        if (number < 0) {
+            std::cerr << "Error: not a positive number." << std::endl;
+            continue;
+        } else if (number > 1000) {
+            std::cerr << "Error: too large number." << std::endl;
+            continue;
+        }
+
+        if (!checkDate(year, month, day)) {
+            std::cerr << "Error: invalid date " << year << "-" << month << "-" << day << std::endl;
+            continue;
+        }
+
+        int timestamp = year * 10000 + month * 100 + day;
+
+        std::map<int, float>::const_iterator it = dataMap.upper_bound(timestamp);
+        if (it != dataMap.begin()) {
+            --it;
+        } else {
+            std::cerr << "Error: no valid date found before " << line.substr(0, 10) << std::endl;
+            continue;
+        }
+
+        printPrice(year, month, day, it->second * number);
+    }
+
+    file.close();
 }

@@ -13,7 +13,7 @@ public:
 	BitcoinExchange(const BitcoinExchange &copy);
 	BitcoinExchange &operator=(const BitcoinExchange &copy);
 	void fill(const char *filename);
-	std::map<int, float> getData() const;
+	const std::map<int, float> & getData() const;
 	void getPrice(const char *date) const;
 	void	printPrice(int year, int month, int day, float price) const;
 	bool	lineIsValid(std::string line) const;
