@@ -73,6 +73,12 @@ bool isDigit(std::string num) {
 	return (true);
 }
 
+bool charIsDigit(char num) {
+	if (num < '0' || num > '9')
+		return false;
+	return (true);
+}
+
 // METHODES
 
 void BitcoinExchange::fill(const char *filename) {
@@ -117,16 +123,30 @@ void	BitcoinExchange::printPrice(int year, int month, int day, float price) cons
 
 bool	BitcoinExchange::lineIsValid(std::string line) const {
 	if (line.size() < 14) {
+		std::cerr << "Error: Need more" << std::endl;
 		return (false);
 	}
 	if (isDigit(line.substr(0, 4)) == false || isDigit(line.substr(5, 2)) == false || isDigit(line.substr(8, 2)) == false) {
+		std::cerr << "Error: Date must be numbers" << std::endl;
 		return (false);
 	}
-	if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' ')
+	if (line[4] != '-' || line[7] != '-' || line[10] != ' ' || line[11] != '|' || line[12] != ' '){
+		std::cerr << "Error: Invalid Format" << std::endl;
 		return (false);
+	}
 	std::string lastNum = line.substr(13);
-	if (isDigit(lastNum) == false)
+	if (charIsDigit(lastNum[0]) == false && (lastNum[0] != '+' && lastNum[0] != '-')) {
+		std::cerr << "Error: Value isn't digit" << std::endl;
 		return (false);
+	}
+
+	for (int i = 1; lastNum[i]; i++) {
+		if ((lastNum[i] == '.' && charIsDigit(lastNum[i + 1]) == false) || (lastNum[i] != '.' && charIsDigit(lastNum[i]) == false)) {
+			std::cerr << "Error: Value isn't digit" << std::endl;
+			return (false);
+		}
+	}
+
 	return true;
 }
 
@@ -148,7 +168,7 @@ void BitcoinExchange::getPrice(const char *date) const {
 
     while (std::getline(file, line)) {
         if (!lineIsValid(line)) {
-            std::cerr << "Error: invalid format" << std::endl;
+            // std::cerr << "Error: Date must be numbersrror: invalid format" << std::endl;
             continue;
         }
 
