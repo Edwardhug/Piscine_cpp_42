@@ -2,23 +2,25 @@
 # include "../includes/PmergeMe.hpp"
 # include <sys/time.h>
 # include <ctime>
+#include <climits>
 
 void *atoui(char *str) {
-	unsigned long int ret;
+	unsigned int ret;
+	unsigned long int temp;
 	ret = 0;
 	int i = 0;
-	int	j = 1;
+	unsigned long int	j = 1;
 
 	while (str[i] && str[i + 1]) 
 		i++;
-	while (i >= 0) {
-
+	while (i >= 0 && str[i] != '+') {
+		temp = ret + (str[i] - '0') * j;
 		ret += (str[i] - '0') * j;
-		j *= 10;
-		i--;
-		if (ret > 4294967295) {
+		if ((long int)temp != ret) {
 			throw (std::exception());
 		}
+		j *= 10;
+		i--;
 	}
 	void *addr = new unsigned long int(ret);
 	return (addr);

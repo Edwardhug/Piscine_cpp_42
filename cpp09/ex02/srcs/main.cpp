@@ -3,8 +3,16 @@
 #include <exception>
 
 bool isDigit(char *str) {
-	for (int i = 0; str[i]; i++) {
-		if (str[i] > '9' || str[i] < '0')
+	int i = 0;
+	while (str[i] == '+') {
+		if ((str[i] == '+' && ((str[i+1] > '9' || str[i+1] < '0') && str[i + 1] != '+'))) {
+			return (false);
+		}
+		i++;
+	}
+	int a = i;
+	for (int i = a; str[i]; i++) {
+		if ((str[i] > '9' || str[i] < '0'))
 			return (false);
 	}
 	return (true);

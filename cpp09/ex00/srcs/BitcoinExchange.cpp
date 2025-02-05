@@ -17,8 +17,6 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy) {
 	return *this;
 }
 
-//	UTILS
-
 int	ft_stoi(const std::string &str) {
 	int result = 0;
 	for (size_t i = 0; i < str.size(); i++) {
@@ -79,7 +77,6 @@ bool charIsDigit(char num) {
 	return (true);
 }
 
-// METHODES
 
 void BitcoinExchange::fill(const char *filename) {
 	std::ifstream file(filename);
@@ -168,7 +165,6 @@ void BitcoinExchange::getPrice(const char *date) const {
 
     while (std::getline(file, line)) {
         if (!lineIsValid(line)) {
-            // std::cerr << "Error: Date must be numbersrror: invalid format" << std::endl;
             continue;
         }
 
