@@ -77,12 +77,12 @@ std::vector<std::pair<void *, void *>*> PmergeMe::depairingVec(std::vector<std::
 std::vector<std::pair<void *, void *> *>	PmergeMe::recursiveSortVec(std::vector<std::pair<void *, void *> *> before) {
 	_deep++;
 
-	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 1) {
 		_deep--;
 		return (before);
 	}
-	std::vector<std::pair<void *, void *> *> newVec = pairingVec(before); // fais le pairage
-	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec); // rappelle de la fonction si on a plus de 2 element
+	std::vector<std::pair<void *, void *> *> newVec = pairingVec(before);
+	std::vector<std::pair<void *, void *> *> retVec = recursiveSortVec(newVec);
 
 	retVec = depairingVec(retVec);
 	for (std::vector<std::pair<void *, void *> *>::iterator it = newVec.begin(); it != newVec.end(); ++it) {
@@ -102,6 +102,39 @@ void	PmergeMe::sortVec() {
 
 
 
+// std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers) {
+//     std::vector<std::pair<void *, void *>*> result;
+//     result.reserve(bigNumbers.size() + smallNumbers.size());
+//     result = bigNumbers;
+//     if (smallNumbers.empty()) {
+//         return result;
+//     }
+//     std::vector<size_t> jacobsthal;
+//     jacobsthal.push_back(1);
+//     jacobsthal.push_back(3);
+//     while (jacobsthal.back() < smallNumbers.size()) {
+//         jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
+//     }
+//     for (size_t i = 0; i < smallNumbers.size(); ++i) {
+// 		int j = 0;
+//         std::pair<void *, void *>* toInsert = smallNumbers[i];
+//         size_t left = 0;
+//         size_t right = result.size();
+//         while (left < right) {
+//             size_t mid = left + (right - left) / 2;
+//             if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + i)) {
+//                 left = mid + 1;
+//             } else {
+//                 right = mid;
+//             }
+// 			j++;
+//         }
+// 		std::cout << "nombre de comparaison pour cette insertion = " << j << std::endl;
+//         result.insert(result.begin() + left, toInsert);
+// 	}
+//     return result;
+// }
+
 std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<std::pair<void *, void *>*>& bigNumbers, std::vector<std::pair<void *, void *>*>& smallNumbers) {
     std::vector<std::pair<void *, void *>*> result;
     result.reserve(bigNumbers.size() + smallNumbers.size());
@@ -115,23 +148,52 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<
     while (jacobsthal.back() < smallNumbers.size()) {
         jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
     }
-    for (size_t i = 0; i < smallNumbers.size(); ++i) {
-        std::pair<void *, void *>* toInsert = smallNumbers[i];
-        size_t left = 0;
-        size_t right = result.size();
-        while (left < right) {
-            size_t mid = left + (right - left) / 2;
-            if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + i)) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
+    // Generate the Jacobsthal insertion order
+	std::vector<size_t> insertionOrder;
+	size_t lastJacob = 0;
+	// size_t currentJacob = 1;
+	for (size_t i = 0; i < jacobsthal.size(); ++i) {
+	    size_t j = jacobsthal[i];
+	    // Insert elements from j down to lastJacob + 1
+	    for (size_t k = j; k > lastJacob; --k) {
+	        if (k - 1 < smallNumbers.size()) {
+	            insertionOrder.push_back(k - 1);
+	        }
+	    }
+	    lastJacob = j;
+	    if (j >= smallNumbers.size()) {
+	        break;
+	    }
+	}
+	for (std::vector<size_t>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); it++) {
+		std::cout << "insertion order " << *it << std::endl;
+	}
 
-        result.insert(result.begin() + left, toInsert);
+	// Insert elements according to the generated order
+	for (std::vector<size_t>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
+	    size_t index = *it;
+		int i = 0;
+	    if (index >= smallNumbers.size()) {
+	        continue;
+	    }
+	    std::pair<void *, void *>* toInsert = smallNumbers[index];
+	    size_t left = 0;
+	    size_t right = result.size();
+	    while (left < right) {
+	        size_t mid = left + (right - left) / 2;
+	        if (dataOfPairVector(result.begin() + mid) < dataOfPairVector(smallNumbers.begin() + index)) {
+	            left = mid + 1;
+	        } else {
+	            right = mid;
+	        }
+			i++;
+	    }
+		// std::cout << "nombre de comparaison pour cette insertion = " << i << std::endl;
+	    result.insert(result.begin() + left, toInsert);
 	}
     return result;
 }
+
 
 void	PmergeMe::setBeforeVec() {
 	_beforeVec = getCurrentTimeInMilliseconds();

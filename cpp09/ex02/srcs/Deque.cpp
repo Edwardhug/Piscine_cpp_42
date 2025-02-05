@@ -77,12 +77,12 @@ std::deque<std::pair<void *, void *>*> PmergeMe::depairingDeq(std::deque<std::pa
 std::deque<std::pair<void *, void *> *>	PmergeMe::recursiveSortDeq(std::deque<std::pair<void *, void *> *> before) {
 	_deep++;
 
-	if (before.size() <= 1) {	// plus que deux elements, on les swap ou on les garde meme pas sur que ce soit utile se swapper
+	if (before.size() <= 1) {
 		_deep--;
 		return (before);
 	}
-	std::deque<std::pair<void *, void *> *> newDeq = pairingDeq(before); // fais le pairage
-	std::deque<std::pair<void *, void *> *> retDeq = recursiveSortDeq(newDeq); // rappelle de la fonction si on a plus de 2 element
+	std::deque<std::pair<void *, void *> *> newDeq = pairingDeq(before);
+	std::deque<std::pair<void *, void *> *> retDeq = recursiveSortDeq(newDeq);
 
 	retDeq = depairingDeq(retDeq);
 	for (std::deque<std::pair<void *, void *> *>::iterator it = newDeq.begin(); it != newDeq.end(); ++it) {
@@ -104,7 +104,6 @@ void	PmergeMe::sortDeq() {
 
 std::deque<std::pair<void *, void *>*> PmergeMe::mergeInsertionDeq(std::deque<std::pair<void *, void *>*>& bigNumbers, std::deque<std::pair<void *, void *>*>& smallNumbers) {
     std::deque<std::pair<void *, void *>*> result;
-    // result.reserve(bigNumbers.size() + smallNumbers.size());
     result = bigNumbers;
     if (smallNumbers.empty()) {
         return result;
