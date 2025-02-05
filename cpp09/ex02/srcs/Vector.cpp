@@ -148,13 +148,10 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<
     while (jacobsthal.back() < smallNumbers.size()) {
         jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
     }
-    // Generate the Jacobsthal insertion order
 	std::vector<size_t> insertionOrder;
 	size_t lastJacob = 0;
-	// size_t currentJacob = 1;
 	for (size_t i = 0; i < jacobsthal.size(); ++i) {
 	    size_t j = jacobsthal[i];
-	    // Insert elements from j down to lastJacob + 1
 	    for (size_t k = j; k > lastJacob; --k) {
 	        if (k - 1 < smallNumbers.size()) {
 	            insertionOrder.push_back(k - 1);
@@ -165,11 +162,7 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<
 	        break;
 	    }
 	}
-	for (std::vector<size_t>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); it++) {
-		std::cout << "insertion order " << *it << std::endl;
-	}
 
-	// Insert elements according to the generated order
 	for (std::vector<size_t>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
 	    size_t index = *it;
 		int i = 0;
@@ -188,7 +181,6 @@ std::vector<std::pair<void *, void *>*> PmergeMe::mergeInsertionVec(std::vector<
 	        }
 			i++;
 	    }
-		// std::cout << "nombre de comparaison pour cette insertion = " << i << std::endl;
 	    result.insert(result.begin() + left, toInsert);
 	}
     return result;
