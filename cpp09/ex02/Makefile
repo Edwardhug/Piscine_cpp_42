@@ -19,10 +19,10 @@ PATH_OBJS = objs/
 all: $(NAME)
 
 $(NAME): $(PATH_OBJS) $(OBJS) $(addprefix $(PATH_INCLUDE), $(INCLUDE))
-	$(CC) $(CFLAG) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAG) $(OBJS) -pie -o $(NAME)
 
 $(OBJS): $(PATH_OBJS)%.o: $(PATH_SRCS)%.cpp $(addprefix $(PATH_INCLUDE), $(INCLUDE))
-	$(CC) $(CFLAG) -I$(PATH_INCLUDE) -c $< -o $@
+	$(CC) $(CFLAG) -I$(PATH_INCLUDE) -fPIE -c $< -o $@
 
 $(PATH_OBJS):
 	mkdir -p $(PATH_OBJS)

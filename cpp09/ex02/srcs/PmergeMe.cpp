@@ -20,10 +20,12 @@ PmergeMe::~PmergeMe() {
 
 PmergeMe::PmergeMe(PmergeMe const &copy) {
 	_vec = copy._vec;
+	_deq = copy._deq;
 }
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &copy) {
 	_vec = copy._vec;
+	_deq = copy._deq;
 	return (*this);
 }
 

@@ -99,11 +99,9 @@ void	PmergeMe::sortDeq() {
 	setAfterDeq();
 }
 
-
-
-
 std::deque<std::pair<void *, void *>*> PmergeMe::mergeInsertionDeq(std::deque<std::pair<void *, void *>*>& bigNumbers, std::deque<std::pair<void *, void *>*>& smallNumbers) {
     std::deque<std::pair<void *, void *>*> result;
+    result.resize(bigNumbers.size() + smallNumbers.size());
     result = bigNumbers;
     if (smallNumbers.empty()) {
         return result;
@@ -114,23 +112,48 @@ std::deque<std::pair<void *, void *>*> PmergeMe::mergeInsertionDeq(std::deque<st
     while (jacobsthal.back() < smallNumbers.size()) {
         jacobsthal.push_back(jacobsthal[jacobsthal.size() - 1] + 2 * jacobsthal[jacobsthal.size() - 2]);
     }
-    for (size_t i = 0; i < smallNumbers.size(); ++i) {
-        std::pair<void *, void *>* toInsert = smallNumbers[i];
-        size_t left = 0;
-        size_t right = result.size();
-        while (left < right) {
-            size_t mid = left + (right - left) / 2;
-            if (dataOfPairDeque(result.begin() + mid) < dataOfPairDeque(smallNumbers.begin() + i)) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
+	std::deque<size_t> insertionOrder;
+	size_t lastJacob = 0;
+	for (size_t i = 0; i < jacobsthal.size(); ++i) {
+	    size_t j = jacobsthal[i];
+	    for (size_t k = j; k > lastJacob; --k) {
+	        if (k - 1 < smallNumbers.size()) {
+	            insertionOrder.push_back(k - 1);
+	        }
+	    }
+	    lastJacob = j;
+	    if (j >= smallNumbers.size()) {
+	        break;
+	    }
+	}
 
-        result.insert(result.begin() + left, toInsert);
+	for (std::deque<size_t>::iterator it = insertionOrder.begin(); it != insertionOrder.end(); ++it) {
+	    size_t index = *it;
+		int i = 0;
+	    if (index >= smallNumbers.size()) {
+	        continue;
+	    }
+	    std::pair<void *, void *>* toInsert = smallNumbers[index];
+	    size_t left = 0;
+	    size_t right = result.size();
+	    while (left < right) {
+	        size_t mid = left + (right - left) / 2;
+	        if (dataOfPairDeque(result.begin() + mid) < dataOfPairDeque(smallNumbers.begin() + index)) {
+	            left = mid + 1;
+	        } else {
+	            right = mid;
+	        }
+			i++;
+	    }
+	    result.insert(result.begin() + left, toInsert);
 	}
     return result;
 }
+
+
+
+
+
 
 void	PmergeMe::setBeforeDeq() {
 	_beforeDeq = getCurrentTimeInMilliseconds();
